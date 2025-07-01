@@ -1,11 +1,24 @@
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
-
 export async function POST(request) {
   try {
+    // API 키 검증
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    
+    if (!apiKey) {
+      console.error('ANTHROPIC_API_KEY 환경변수가 설정되지 않았습니다.');
+      return Response.json({ 
+        error: 'API 키가 설정되지 않았습니다. 관리자에게 문의해주세요.' 
+      }, { status: 500 });
+    }
+
+    if (!apiKey.startsWith('sk-ant-')) {
+      console.error('잘못된 API 키 형식입니다.');
+      return Response.json({ 
+        error: 'API 키 형식이 올바르지 않습니다.' 
+      }, { status: 500 });
+    }
+
     const { topic, category, subcategory, type } = await request.json();
 
     if (!topic || !category) {
@@ -14,10 +27,15 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
+    // Anthropic 클라이언트 초기화
+    const anthropic = new Anthropic({
+      apiKey: apiKey,
+    });
+
     // 콘텐츠 타입별 프롬프트 템플릿
     const prompts = {
       'research-post': `
-교육연구자의 관점에서 "${topic}"에 대한 연구 블로그 포스트를 작성해주세요.
+교육연구자의 관점에서 "${topic}"에 대한 연구 블로그 포스트를 한국어로 작성해주세요.
 
 카테고리: ${category}
 ${subcategory ? `세부분야: ${subcategory}` : ''}
@@ -35,7 +53,7 @@ ${subcategory ? `세부분야: ${subcategory}` : ''}
 특별 요청: Claude AI와의 협업 연구 과정을 자연스럽게 언급해주세요.
 `,
       'teaching-reflection': `
-교수로서 "${topic}"에 대한 수업 후기 및 성찰을 작성해주세요.
+교수로서 "${topic}"에 대한 수업 후기 및 성찰을 한국어로 작성해주세요.
 
 다음 내용을 포함해주세요:
 1. 수업 개요 및 목표
@@ -49,7 +67,7 @@ ${subcategory ? `세부분야: ${subcategory}` : ''}
 길이: 1200-1500자
 `,
       'ai-insight': `
-"${topic}"에 대해 Claude AI와 나눈 대화를 바탕으로 인사이트 포스트를 작성해주세요.
+"${topic}"에 대해 Claude AI와 나눈 대화를 바탕으로 인사이트 포스트를 한국어로 작성해주세요.
 
 다음 구조로 작성해주세요:
 1. 대화의 시작 (어떤 질문이나 궁금증에서 시작되었는지)
@@ -60,10 +78,9 @@ ${subcategory ? `세부분야: ${subcategory}` : ''}
 
 글의 톤: 호기심 많은 연구자의 탐구 과정을 생생하게
 길이: 1000-1300자
-특별 요청: Claude와의 실제 대화 형식을 일부 포함해주세요.
 `,
       'coffee-essay': `
-커피를 마시며 "${topic}"에 대해 생각한 에세이를 작성해주세요.
+커피를 마시며 "${topic}"에 대해 생각한 에세이를 한국어로 작성해주세요.
 
 다음 요소들을 자연스럽게 녹여주세요:
 1. 커피 한 잔과 함께 시작하는 생각
@@ -74,7 +91,6 @@ ${subcategory ? `세부분야: ${subcategory}` : ''}
 
 글의 톤: 개인적이고 철학적이며 따뜻한 에세이
 길이: 800-1200자
-특별 요청: 커피와 관련된 은유나 비유를 적절히 사용해주세요.
 `
     };
 
@@ -93,45 +109,14 @@ ${subcategory ? `세부분야: ${subcategory}` : ''}
 
     const generatedContent = response.content[0].text;
 
-    // 메타데이터 생성을 위한 추가 요청
-    const metadataPrompt = `
-다음 글을 분석해서 JSON 형태로 메타데이터를 생성해주세요:
-
-글 내용:
-${generatedContent}
-
-다음 형식으로 답변해주세요 (JSON만):
-{
-  "title": "글 제목 (50자 이내)",
-  "summary": "한 줄 요약 (100자 이내)",
-  "tags": ["태그1", "태그2", "태그3", "태그4", "태그5"],
-  "readingTime": "예상 읽기 시간 (분)",
-  "difficulty": "초급|중급|고급"
-}
-`;
-
-    const metadataResponse = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 500,
-      messages: [{ 
-        role: 'user', 
-        content: metadataPrompt
-      }]
-    });
-
-    let metadata;
-    try {
-      metadata = JSON.parse(metadataResponse.content[0].text);
-    } catch (error) {
-      // 파싱 실패시 기본값 사용
-      metadata = {
-        title: `${topic}에 대한 연구`,
-        summary: `${topic} 관련 ${category} 연구 내용`,
-        tags: [category, subcategory, 'Claude AI', 'AI연구'].filter(Boolean),
-        readingTime: "5",
-        difficulty: "중급"
-      };
-    }
+    // 간단한 메타데이터 생성
+    const metadata = {
+      title: topic.length > 50 ? topic.substring(0, 47) + '...' : topic,
+      summary: `${topic}에 대한 ${category} 연구 분석`,
+      tags: [category, subcategory, 'Claude AI', '교육연구', 'AI협업'].filter(Boolean),
+      readingTime: Math.ceil(generatedContent.length / 300) + "",
+      difficulty: "중급"
+    };
 
     console.log('콘텐츠 생성 완료');
 
@@ -140,7 +125,6 @@ ${generatedContent}
       metadata: metadata,
       generatedAt: new Date().toISOString(),
       conversation: {
-        prompt: prompt,
         topic: topic,
         category: category,
         subcategory: subcategory,
@@ -153,12 +137,16 @@ ${generatedContent}
     
     if (error.status === 401) {
       return Response.json({ 
-        error: 'API 키가 유효하지 않습니다.' 
+        error: 'API 키가 유효하지 않습니다. Anthropic Console에서 API 키를 확인해주세요.' 
       }, { status: 401 });
     } else if (error.status === 429) {
       return Response.json({ 
         error: 'API 사용량 한도를 초과했습니다. 잠시 후 다시 시도해주세요.' 
       }, { status: 429 });
+    } else if (error.code === 'ENOTFOUND') {
+      return Response.json({ 
+        error: '네트워크 연결 오류입니다. 인터넷 연결을 확인해주세요.' 
+      }, { status: 503 });
     } else {
       return Response.json({ 
         error: `콘텐츠 생성 중 오류가 발생했습니다: ${error.message}` 
