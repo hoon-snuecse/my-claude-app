@@ -1,26 +1,269 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* 커스텀 CSS 변수 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-navy: #1e3a8a;
+  --secondary-gold: #f59e0b;
+  --accent-purple: #6366f1;
+  --accent-blue: #8b5cf6;
+  --bg-light: #f8fafc;
+  --text-dark: #1f2937;
+  --text-medium: #4b5563;
+  --text-light: #6b7280;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 기본 스타일 초기화 */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* 커스텀 컴포넌트 클래스 */
+@layer components {
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-lg hover:-translate-y-1 transform transition-all duration-300;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-200;
+  }
+  
+  .btn-gold {
+    @apply bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-3 rounded-lg font-medium hover:from-yellow-600 hover:to-orange-600 transition-all duration-200 transform hover:scale-105;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900;
+  }
+  
+  .section-padding {
+    @apply py-16 px-4;
+  }
+  
+  .container-custom {
+    @apply max-w-6xl mx-auto;
+  }
+  
+  .prose-custom {
+    @apply text-gray-700 leading-relaxed;
+  }
+  
+  .prose-custom h1 {
+    @apply text-4xl font-bold mb-6 text-gray-900;
+  }
+  
+  .prose-custom h2 {
+    @apply text-3xl font-bold mb-4 text-gray-900;
+  }
+  
+  .prose-custom h3 {
+    @apply text-2xl font-semibold mb-3 text-gray-800;
+  }
+  
+  .prose-custom p {
+    @apply mb-4 text-gray-700;
+  }
+  
+  .prose-custom ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+  
+  .prose-custom ol {
+    @apply list-decimal list-inside mb-4 space-y-2;
+  }
+  
+  .research-card {
+    @apply bg-white rounded-xl shadow-lg p-8 border-l-4 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1;
+  }
+  
+  .research-card.pisa {
+    @apply border-l-blue-500;
+  }
+  
+  .research-card.evidence {
+    @apply border-l-green-500;
+  }
+  
+  .research-card.sna {
+    @apply border-l-purple-500;
+  }
+  
+  .ai-glow {
+    @apply bg-gradient-to-r from-purple-600/10 to-blue-600/10 backdrop-blur-sm border border-purple-200/50;
+  }
+  
+  .coffee-warm {
+    @apply bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200/50;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 커스텀 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-typing {
+  overflow: hidden;
+  border-right: 2px solid #6366f1;
+  white-space: nowrap;
+  animation: typing 3s steps(40, end);
+}
+
+/* 로딩 스피너 */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0%, 20% { content: '●'; }
+  40% { content: '●●'; }
+  60% { content: '●●●'; }
+  80%, 100% { content: ''; }
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+  .section-padding {
+    @apply py-12 px-4;
+  }
+  
+  .card {
+    @apply p-4;
+  }
+  
+  .research-card {
+    @apply p-6;
+  }
+}
+
+/* 다크모드 지원 (향후 확장용) */
+@media (prefers-color-scheme: dark) {
+  .card {
+    @apply bg-gray-800 border-gray-700 text-white;
+  }
+}
+
+/* 프린트 스타일 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 포커스 표시 개선 */
+:focus {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* 선택 텍스트 스타일 */
+::selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: inherit;
 }
