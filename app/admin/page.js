@@ -94,7 +94,11 @@ export default function AdminPage() {
     }
   };
 
+<<<<<<< HEAD
 // app/admin/page.js의 saveContent 함수 수정
+=======
+// app/admin/page.js에서 saveContent 함수를 다음으로 교체:
+>>>>>>> remove-sensitive-files
 
 const saveContent = async () => {
   if (!generatedContent) {
@@ -121,12 +125,21 @@ const saveContent = async () => {
     if (response.ok) {
       alert(`✅ 저장 완료!
 
+<<<<<<< HEAD
 파일명: ${data.filename}
 저장 위치: ${data.path}
 
 이제 다음 위치에서 확인할 수 있습니다:
 - 프로젝트 폴더의 /posts/ 디렉토리
 - GitHub 저장소 (다음 커밋에서)`);
+=======
+📁 파일명: ${data.filename}
+📂 저장 위치: posts/${data.filename}
+
+이제 다음 위치에서 확인할 수 있습니다:
+• 프로젝트 폴더의 /posts/ 디렉토리
+• GitHub 푸시 후 웹사이트에서도 확인 가능`);
+>>>>>>> remove-sensitive-files
       
       // 폼 초기화
       setFormData({
@@ -137,10 +150,18 @@ const saveContent = async () => {
       });
       setGeneratedContent(null);
     } else {
+<<<<<<< HEAD
       alert(`저장 오류: ${data.error}`);
     }
   } catch (error) {
     alert('저장 중 네트워크 오류가 발생했습니다.');
+=======
+      alert(`❌ 저장 오류: ${data.error}`);
+    }
+  } catch (error) {
+    alert('💥 저장 중 네트워크 오류가 발생했습니다.');
+    console.error('Save error:', error);
+>>>>>>> remove-sensitive-files
   }
 };
 
