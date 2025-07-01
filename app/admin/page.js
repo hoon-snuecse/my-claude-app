@@ -94,17 +94,56 @@ export default function AdminPage() {
     }
   };
 
-  const saveContent = async () => {
-    alert('콘텐츠가 저장되었습니다! (실제 구현에서는 데이터베이스에 저장됩니다)');
-    
-    setFormData({
-      topic: '',
-      category: 'research',
-      subcategory: '',
-      type: 'research-post'
+// app/admin/page.js에서 saveContent 함수를 다음으로 교체:
+
+const saveContent = async () => {
+  if (!generatedContent) {
+    alert('저장할 콘텐츠가 없습니다.');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: generatedContent.content,
+        metadata: generatedContent.metadata,
+        category: formData.category,
+        subcategory: formData.subcategory
+      }),
     });
-    setGeneratedContent(null);
-  };
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`✅ 저장 완료!
+
+📁 파일명: ${data.filename}
+📂 저장 위치: posts/${data.filename}
+
+이제 다음 위치에서 확인할 수 있습니다:
+• 프로젝트 폴더의 /posts/ 디렉토리
+• GitHub 푸시 후 웹사이트에서도 확인 가능`);
+      
+      // 폼 초기화
+      setFormData({
+        topic: '',
+        category: 'research',
+        subcategory: '',
+        type: 'research-post'
+      });
+      setGeneratedContent(null);
+    } else {
+      alert(`❌ 저장 오류: ${data.error}`);
+    }
+  } catch (error) {
+    alert('💥 저장 중 네트워크 오류가 발생했습니다.');
+    console.error('Save error:', error);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
