@@ -94,93 +94,66 @@ export default function AdminPage() {
     }
   };
 
-<<<<<<< HEAD
-// app/admin/page.js의 saveContent 함수 수정
-=======
-// app/admin/page.js에서 saveContent 함수를 다음으로 교체:
->>>>>>> remove-sensitive-files
+  const saveContent = async () => {
+    if (!generatedContent) {
+      alert('저장할 콘텐츠가 없습니다.');
+      return;
+    }
 
-const saveContent = async () => {
-  if (!generatedContent) {
-    alert('저장할 콘텐츠가 없습니다.');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/posts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        content: generatedContent.content,
-        metadata: generatedContent.metadata,
-        category: formData.category,
-        subcategory: formData.subcategory
-      }),
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert(`✅ 저장 완료!
-
-<<<<<<< HEAD
-파일명: ${data.filename}
-저장 위치: ${data.path}
-
-이제 다음 위치에서 확인할 수 있습니다:
-- 프로젝트 폴더의 /posts/ 디렉토리
-- GitHub 저장소 (다음 커밋에서)`);
-=======
-📁 파일명: ${data.filename}
-📂 저장 위치: posts/${data.filename}
-
-이제 다음 위치에서 확인할 수 있습니다:
-• 프로젝트 폴더의 /posts/ 디렉토리
-• GitHub 푸시 후 웹사이트에서도 확인 가능`);
->>>>>>> remove-sensitive-files
-      
-      // 폼 초기화
-      setFormData({
-        topic: '',
-        category: 'research',
-        subcategory: '',
-        type: 'research-post'
+    try {
+      const response = await fetch('/api/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: generatedContent.content,
+          metadata: generatedContent.metadata,
+          category: formData.category,
+          subcategory: formData.subcategory
+        }),
       });
-      setGeneratedContent(null);
-    } else {
-<<<<<<< HEAD
-      alert(`저장 오류: ${data.error}`);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(`✅ 저장 완료!
+
+📁 파일명: ${data.filename}
+📂 저장 위치: ${data.path}
+🔗 GitHub: ${data.githubUrl || 'GitHub에 저장됨'}
+
+콘텐츠가 성공적으로 저장되었습니다!`);
+        
+        setFormData({
+          topic: '',
+          category: 'research',
+          subcategory: '',
+          type: 'research-post'
+        });
+        setGeneratedContent(null);
+      } else {
+        alert(`❌ 저장 오류: ${data.error}`);
+      }
+    } catch (error) {
+      alert('💥 저장 중 네트워크 오류가 발생했습니다.');
+      console.error('Save error:', error);
     }
-  } catch (error) {
-    alert('저장 중 네트워크 오류가 발생했습니다.');
-=======
-      alert(`❌ 저장 오류: ${data.error}`);
-    }
-  } catch (error) {
-    alert('💥 저장 중 네트워크 오류가 발생했습니다.');
-    console.error('Save error:', error);
->>>>>>> remove-sensitive-files
-  }
-};
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
-        {/* 헤더 */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">콘텐츠 관리자</h1>
           <p className="text-gray-600">Claude AI와 함께 새로운 콘텐츠를 생성하고 관리하세요</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* 콘텐츠 생성 폼 */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">새 콘텐츠 생성</h2>
             
             <div className="space-y-6">
-              {/* 주제 입력 */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   주제 *
@@ -195,7 +168,6 @@ const saveContent = async () => {
                 />
               </div>
 
-              {/* 카테고리 선택 */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   카테고리 *
@@ -212,7 +184,6 @@ const saveContent = async () => {
                 </select>
               </div>
 
-              {/* 서브카테고리 선택 */}
               {categories[formData.category]?.subcategories && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -232,7 +203,6 @@ const saveContent = async () => {
                 </div>
               )}
 
-              {/* 콘텐츠 타입 선택 */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   콘텐츠 타입 *
@@ -249,7 +219,6 @@ const saveContent = async () => {
                 </select>
               </div>
 
-              {/* 생성 버튼 */}
               <button
                 onClick={generateContent}
                 disabled={loading || !formData.topic.trim()}
@@ -266,7 +235,6 @@ const saveContent = async () => {
               </button>
             </div>
 
-            {/* 생성 팁 */}
             <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
               <h3 className="font-medium text-blue-800 mb-2">💡 생성 팁</h3>
               <ul className="text-sm text-blue-700 space-y-1">
@@ -277,7 +245,6 @@ const saveContent = async () => {
             </div>
           </div>
 
-          {/* 생성된 콘텐츠 미리보기 */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold text-gray-800">생성된 콘텐츠</h2>
@@ -307,7 +274,6 @@ const saveContent = async () => {
               </div>
             ) : (
               <div className="space-y-6">
-                {/* 메타데이터 */}
                 <div className="bg-gray-50 rounded-lg p-4 border">
                   <h3 className="font-semibold text-gray-800 mb-3">📋 메타데이터</h3>
                   <div className="grid md:grid-cols-2 gap-4 text-sm">
@@ -336,7 +302,6 @@ const saveContent = async () => {
                   </div>
                 </div>
 
-                {/* 콘텐츠 */}
                 <div className="border border-gray-200 rounded-lg">
                   <div className="bg-gray-50 px-4 py-2 border-b border-gray-200 rounded-t-lg">
                     <h3 className="font-semibold text-gray-800">📝 콘텐츠</h3>
@@ -362,7 +327,6 @@ const saveContent = async () => {
                   </div>
                 </div>
 
-                {/* 생성 정보 */}
                 <div className="text-xs text-gray-500 border-t pt-4">
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <span>
