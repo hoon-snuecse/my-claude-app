@@ -1,6 +1,6 @@
 // app/components/Footer.js
 import Link from 'next/link';
-import { Mail, MapPin, Clock, Coffee, Github, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Clock, Coffee, ExternalLink } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -42,7 +42,7 @@ export default function Footer() {
             
             <div className="flex items-center gap-2 text-blue-300 italic mb-4">
               <Coffee className="w-4 h-4" />
-              <span>"Every cup of coffee fuels another insight"</span>
+              <span>&ldquo;Every cup of coffee fuels another insight&rdquo;</span>
             </div>
             
             {/* 연락처 정보 */}
