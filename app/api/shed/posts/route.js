@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import * as memoryAPI from './local/route.js';
 
 const POSTS_FILE = path.join(process.cwd(), 'data', 'shed-posts.json');
+
+// Check if we're running on Vercel
+const IS_VERCEL = process.env.VERCEL === '1';
 
 // Ensure data directory exists
 async function ensureDataDir() {
@@ -43,7 +47,12 @@ async function savePosts(posts) {
   }
 }
 
-export async function GET() {
+export async function GET(request) {
+  // Use memory storage on Vercel
+  if (IS_VERCEL) {
+    return memoryAPI.GET(request);
+  }
+  
   try {
     const posts = await loadPosts();
     return NextResponse.json({ posts });
@@ -53,6 +62,11 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  // Use memory storage on Vercel
+  if (IS_VERCEL) {
+    return memoryAPI.POST(request);
+  }
+  
   try {
     const data = await request.json();
     
@@ -105,6 +119,11 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
+  // Use memory storage on Vercel
+  if (IS_VERCEL) {
+    return memoryAPI.PUT(request);
+  }
+  
   try {
     const data = await request.json();
     
@@ -214,6 +233,11 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
+  // Use memory storage on Vercel
+  if (IS_VERCEL) {
+    return memoryAPI.DELETE(request);
+  }
+  
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');

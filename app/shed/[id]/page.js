@@ -4,7 +4,6 @@ import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, Coffee, Hammer, Camera, Music, Film, Plane } from 'lucide-react';
 import Link from 'next/link';
-import { getShedApiEndpoint } from '@/utils/api-config';
 
 const iconMap = {
   coffee: Coffee,
@@ -24,8 +23,7 @@ export default function PostPage({ params }) {
 
   const fetchPost = useCallback(async () => {
     try {
-      const endpoint = getShedApiEndpoint();
-      const response = await fetch(endpoint);
+      const response = await fetch('/api/shed/posts');
       if (response.ok) {
         const data = await response.json();
         const foundPost = data.posts.find(p => p.id === id);
@@ -51,8 +49,7 @@ export default function PostPage({ params }) {
     if (!confirm('정말로 이 글을 삭제하시겠습니까?')) return;
 
     try {
-      const endpoint = `${getShedApiEndpoint()}?id=${post.id}`;
-      const response = await fetch(endpoint, {
+      const response = await fetch(`/api/shed/posts?id=${post.id}`, {
         method: 'DELETE',
       });
 

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { Coffee, Hammer, Camera, Music, Film, Plane, Plus, PenTool, ChevronRight, Calendar, Clock, Tag } from 'lucide-react';
 import Link from 'next/link';
-import { getShedApiEndpoint } from '@/utils/api-config';
 
 export default function ShedPage() {
   const [fadeIn, setFadeIn] = useState({
@@ -40,8 +39,7 @@ export default function ShedPage() {
 
   const fetchPosts = async () => {
     try {
-      const endpoint = getShedApiEndpoint();
-      const response = await fetch(endpoint);
+      const response = await fetch('/api/shed/posts');
       if (response.ok) {
         const data = await response.json();
         setPosts(data.posts || []);
