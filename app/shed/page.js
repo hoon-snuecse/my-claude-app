@@ -39,7 +39,8 @@ export default function ShedPage() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/shed/posts');
+      // Use Supabase API
+      const response = await fetch('/api/shed/posts/supabase');
       if (response.ok) {
         const data = await response.json();
         setPosts(data.posts || []);

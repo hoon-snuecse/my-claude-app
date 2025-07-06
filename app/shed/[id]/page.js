@@ -23,7 +23,8 @@ export default function PostPage({ params }) {
 
   const fetchPost = useCallback(async () => {
     try {
-      const response = await fetch('/api/shed/posts');
+      // Use Supabase API
+      const response = await fetch('/api/shed/posts/supabase');
       if (response.ok) {
         const data = await response.json();
         const foundPost = data.posts.find(p => p.id === id);
@@ -49,7 +50,8 @@ export default function PostPage({ params }) {
     if (!confirm('정말로 이 글을 삭제하시겠습니까?')) return;
 
     try {
-      const response = await fetch(`/api/shed/posts?id=${post.id}`, {
+      // Use Supabase API
+      const response = await fetch(`/api/shed/posts/supabase?id=${post.id}`, {
         method: 'DELETE',
       });
 
@@ -80,16 +82,12 @@ export default function PostPage({ params }) {
   const formatContent = (content) => {
     if (!content) return '';
     
-    // First, handle images - including base64 images
+    // First, handle images
     let formatted = content.replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
       (match, alt, src) => {
-        // Check if it's a base64 image
-        if (src.startsWith('data:image')) {
-          return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" style="max-height: 500px;" /></div>`;
-        }
-        // Regular image URL
-        return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" /></div>`;
+        // Handle all image URLs (Supabase or others)
+        return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" style="max-height: 500px;" /></div>`;
       }
     );
     

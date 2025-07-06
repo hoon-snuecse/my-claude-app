@@ -38,7 +38,7 @@ function WritePageContent() {
 
   const loadPost = useCallback(async () => {
     try {
-      const response = await fetch('/api/shed/posts/supabase');
+      const response = await fetch('/api/shed/posts');
       if (response.ok) {
         const data = await response.json();
         const post = data.posts.find(p => p.id === editId);
@@ -50,7 +50,7 @@ function WritePageContent() {
             summary: post.summary || '',
             tags: post.tags || [],
             images: post.images || [],
-            isAIGenerated: post.is_ai_generated || false
+            isAIGenerated: post.isAIGenerated || false
           });
           
           // Check if category exists, if not add it as custom
@@ -88,22 +88,28 @@ function WritePageContent() {
     setLoading(true);
 
     try {
-      const endpoint = '/api/shed/posts/supabase';
+      const endpoint = '/api/shed/posts';
       const method = editId ? 'PUT' : 'POST';
       
       const payload = {
         ...formData,
-        readingTime: `${Math.ceil(formData.content.length / 500)}분`,
-        images: formData.images.map(img => ({
-          path: img.path,
-          name: img.name,
-          size: img.size,
-          type: img.type
-        }))
+        readingTime: `${Math.ceil(formData.content.length / 500)}분`
       };
       
       if (editId) {
         payload.id = editId;
+      } else {
+        payload.createdAt = new Date().toISOString();
+      }
+
+      // Check payload size before sending
+      const payloadSize = JSON.stringify(payload).length;
+      console.log(`Sending ${method} request with payload size: ${(payloadSize / 1024).toFixed(2)}KB`);
+      
+      if (payloadSize > 512 * 1024) { // 512KB limit
+        alert(`글의 크기가 너무 큽니다 (${(payloadSize / 1024).toFixed(0)}KB).\n\n이미지를 줄이거나 내용을 줄여주세요.\n최대 크기: 512KB`);
+        setLoading(false);
+        return;
       }
 
       const response = await fetch(endpoint, {
@@ -117,13 +123,29 @@ function WritePageContent() {
       const responseData = await response.json();
       
       if (response.ok) {
+        if (responseData.warning) {
+          console.warn('Warning:', responseData.warning);
+        }
         router.push(`/shed/${editId || responseData.id}`);
       } else {
         throw new Error(responseData.details || responseData.error || 'Failed to save post');
       }
     } catch (error) {
       console.error('Error saving post:', error);
-      alert(`글 저장 중 오류가 발생했습니다.\n\n${error.message}`);
+      
+      let errorMessage = '글 저장 중 오류가 발생했습니다.\n\n';
+      
+      if (error.message.includes('large')) {
+        errorMessage += '파일 크기가 너무 큽니다. 이미지를 더 압축하거나 일부를 제거해주세요.';
+      } else if (error.message.includes('Permission')) {
+        errorMessage += '파일 저장 권한이 없습니다. 관리자에게 문의하세요.';
+      } else if (error.message.includes('Storage full')) {
+        errorMessage += '저장 공간이 부족합니다. 관리자에게 문의하세요.';
+      } else {
+        errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -158,49 +180,86 @@ function WritePageContent() {
     }
   };
 
+  const resizeImage = (file, maxWidth = 800, maxHeight = 800) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Calculate new dimensions
+          if (width > height) {
+            if (width > maxWidth) {
+              height *= maxWidth / width;
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width *= maxHeight / height;
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Try different compression levels to get under size limit
+          let quality = 0.7;
+          let base64 = canvas.toDataURL('image/jpeg', quality);
+          
+          // If still too large, reduce quality further
+          while (base64.length > 300 * 1024 && quality > 0.3) { // 300KB per image max
+            quality -= 0.1;
+            base64 = canvas.toDataURL('image/jpeg', quality);
+          }
+          
+          console.log(`Image compressed: ${file.name}, quality: ${quality}, size: ${(base64.length / 1024).toFixed(0)}KB`);
+          resolve(base64);
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
     setUploadingImage(true);
+    const newImages = [];
 
     try {
       for (const file of files) {
-        // Check file size (10MB limit)
-        if (file.size > 10 * 1024 * 1024) {
-          alert(`${file.name}의 크기가 10MB를 초과합니다. 더 작은 이미지를 선택해주세요.`);
+        // Check file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`${file.name}의 크기가 5MB를 초과합니다. 더 작은 이미지를 선택해주세요.`);
           continue;
         }
 
-        // Upload to Supabase Storage
-        const formData = new FormData();
-        formData.append('file', file);
+        // Resize and compress image
+        const base64 = await resizeImage(file);
 
-        const response = await fetch('/api/shed/upload', {
-          method: 'POST',
-          body: formData,
+        newImages.push({
+          id: Date.now() + Math.random(),
+          name: file.name,
+          data: base64,
+          type: file.type
         });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.details || 'Upload failed');
-        }
-
-        const data = await response.json();
-
-        // Add uploaded image to form data
-        setFormData(prev => ({
-          ...prev,
-          images: [...prev.images, {
-            id: Date.now() + Math.random(),
-            name: data.name,
-            url: data.url,
-            path: data.path,
-            size: data.size,
-            type: data.type
-          }]
-        }));
       }
+
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, ...newImages]
+      }));
     } catch (error) {
       console.error('Image upload error:', error);
       alert('이미지 업로드 중 오류가 발생했습니다.');
@@ -209,27 +268,15 @@ function WritePageContent() {
     }
   };
 
-  const removeImage = async (image) => {
-    try {
-      // If image has a path (uploaded to Supabase), delete it
-      if (image.path) {
-        await fetch(`/api/shed/upload?path=${encodeURIComponent(image.path)}`, {
-          method: 'DELETE',
-        });
-      }
-
-      setFormData(prev => ({
-        ...prev,
-        images: prev.images.filter(img => img.id !== image.id)
-      }));
-    } catch (error) {
-      console.error('Error removing image:', error);
-      alert('이미지 삭제 중 오류가 발생했습니다.');
-    }
+  const removeImage = (imageId) => {
+    setFormData(prev => ({
+      ...prev,
+      images: prev.images.filter(img => img.id !== imageId)
+    }));
   };
 
   const insertImageToContent = (image) => {
-    const imageMarkdown = `\n![${image.name}](${image.url})\n`;
+    const imageMarkdown = `\n![${image.name}](${image.data})\n`;
     setFormData(prev => ({
       ...prev,
       content: prev.content + imageMarkdown
@@ -391,7 +438,7 @@ function WritePageContent() {
                               <p className="mb-2 text-sm text-slate-500">
                                 <span className="font-semibold">클릭하여 업로드</span> 또는 드래그 앤 드롭
                               </p>
-                              <p className="text-xs text-slate-500">PNG, JPG, GIF, WEBP (최대 10MB)</p>
+                              <p className="text-xs text-slate-500">PNG, JPG, GIF (최대 5MB, 자동 압축됨)</p>
                             </>
                           )}
                         </div>
@@ -412,7 +459,7 @@ function WritePageContent() {
                         {formData.images.map((image) => (
                           <div key={image.id} className="relative group">
                             <img
-                              src={image.url}
+                              src={image.data}
                               alt={image.name}
                               className="w-full h-24 object-cover rounded-lg border border-slate-200"
                             />
@@ -427,7 +474,7 @@ function WritePageContent() {
                               </button>
                               <button
                                 type="button"
-                                onClick={() => removeImage(image)}
+                                onClick={() => removeImage(image.id)}
                                 className="p-1 bg-white rounded text-red-600 hover:bg-red-50"
                                 title="삭제"
                               >
