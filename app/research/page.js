@@ -3,46 +3,56 @@ import Link from 'next/link';
 export default function ResearchPage() {
   const researchAreas = [
     {
-      title: "PISA 분석",
-      subtitle: "Programme for International Student Assessment",
-      icon: "🌍",
-      description: "OECD PISA 데이터를 활용한 국제 교육 성취도 비교 분석 및 교육 격차 연구",
-      href: "/research/pisa",
+      title: "혁신학교 관련 활동",
+      subtitle: "Innovation School Activities",
+      icon: "🏫",
+      description: "서울시교육청 혁신학교 운영 지원 및 교원학습공동체 활성화를 위한 다양한 활동",
+      href: "/research/innovation-school",
       color: "from-blue-500 to-cyan-500",
-      features: [
-        "50개국 이상 PISA 데이터 분석",
-        "교육 격차 요인 규명",
-        "정책 제언 및 개선 방안 도출",
-        "Claude AI를 활용한 패턴 발견"
-      ]
+      stats: {
+        activities: 8,
+        period: "2019-2023",
+        organizations: 3
+      }
     },
     {
-      title: "증거기반평가",
-      subtitle: "Evidence-Based Assessment", 
-      description: "데이터 기반의 객관적이고 신뢰할 수 있는 교육 평가 방법론 개발",
-      icon: "📊",
-      href: "/research/evidence-based",
+      title: "연수 및 컨설팅",
+      subtitle: "Training and Consulting", 
+      description: "교육 현장의 평가 방법 개선과 교육과정 운영을 위한 전문적인 연수 및 컨설팅 활동",
+      icon: "📚",
+      href: "/research/training-consulting",
       color: "from-green-500 to-emerald-500",
-      features: [
-        "AI 기반 자동 채점 시스템",
-        "실시간 학습 분석 및 피드백",
-        "블록체인 기반 평가 무결성",
-        "개별화 평가 모델 개발"
-      ]
+      stats: {
+        activities: 7,
+        period: "2016-2022",
+        organizations: 5
+      }
     },
     {
-      title: "사회네트워크분석",
-      subtitle: "Social Network Analysis",
-      description: "교육 커뮤니티 내 관계 패턴과 영향력 구조를 통한 학습 효과 최적화 연구",
-      icon: "🕸️",
-      href: "/research/sna", 
+      title: "연구 활동",
+      subtitle: "Research Activities",
+      description: "학위논문, 교과서 집필, 학술논문 발표 및 국가기관 연구과제 수행",
+      icon: "📖",
+      href: "/research/academic-research", 
       color: "from-purple-500 to-pink-500",
-      features: [
-        "학습자간 상호작용 네트워크 분석",
-        "교사-학생 관계망 효과 측정",
-        "온라인 학습 커뮤니티 역학",
-        "네트워크 중심성과 성과 상관관계"
-      ]
+      stats: {
+        papers: 13,
+        reports: 23,
+        textbooks: 2
+      }
+    },
+    {
+      title: "대학 강의 및 자문",
+      subtitle: "University Lectures & Advisory",
+      description: "서울교대를 비롯한 여러 대학에서의 강의 활동과 한국교육과정평가원 등 전문기관 자문",
+      icon: "🎓",
+      href: "/research/lectures-advisory",
+      color: "from-orange-500 to-red-500",
+      stats: {
+        lectures: 11,
+        advisory: 5,
+        period: "2004-2022"
+      }
     }
   ];
 
@@ -52,10 +62,10 @@ export default function ResearchPage() {
       <section className="bg-gradient-to-r from-slate-800 to-blue-900 text-white py-16">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">연구분야</h1>
+            <h1 className="text-5xl font-bold mb-6">연구 실적</h1>
             <p className="text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
-              데이터 기반의 교육연구와 Claude AI를 활용한 혁신적 분석 방법론을 통해 
-              교육의 미래를 탐구합니다
+              20년 이상의 교육 연구 경험과 혁신적인 교육 방법론 개발을 통해
+              한국 교육 발전에 기여하고 있습니다
             </p>
           </div>
         </div>
@@ -87,15 +97,51 @@ export default function ResearchPage() {
                   </p>
 
                   <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-3">주요 연구 영역</h3>
-                    <ul className="space-y-2">
-                      {area.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-3">
-                          <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                          <span className="text-gray-700">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-3">활동 현황</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {area.stats.activities && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.activities}</div>
+                          <div className="text-sm text-gray-600">활동 건수</div>
+                        </div>
+                      )}
+                      {area.stats.papers && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.papers}</div>
+                          <div className="text-sm text-gray-600">논문 발표</div>
+                        </div>
+                      )}
+                      {area.stats.reports && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.reports}</div>
+                          <div className="text-sm text-gray-600">연구 보고서</div>
+                        </div>
+                      )}
+                      {area.stats.textbooks && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.textbooks}</div>
+                          <div className="text-sm text-gray-600">교과서 집필</div>
+                        </div>
+                      )}
+                      {area.stats.lectures && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.lectures}</div>
+                          <div className="text-sm text-gray-600">대학 강의</div>
+                        </div>
+                      )}
+                      {area.stats.advisory && (
+                        <div className="bg-gray-100 rounded-lg p-3">
+                          <div className="text-2xl font-bold text-gray-800">{area.stats.advisory}</div>
+                          <div className="text-sm text-gray-600">자문 활동</div>
+                        </div>
+                      )}
+                      {area.stats.period && (
+                        <div className="bg-gray-100 rounded-lg p-3 col-span-2">
+                          <div className="text-lg font-bold text-gray-800">{area.stats.period}</div>
+                          <div className="text-sm text-gray-600">활동 기간</div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <Link
@@ -115,20 +161,8 @@ export default function ResearchPage() {
                     <div className={`h-64 bg-gradient-to-br ${area.color} rounded-lg flex items-center justify-center text-white text-6xl mb-4`}>
                       {area.icon}
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-3">최근 연구 성과</h3>
-                    <div className="space-y-3 text-sm text-gray-600">
-                      <div className="flex justify-between">
-                        <span>논문 발표</span>
-                        <span className="font-medium">15편</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>학회 발표</span>
-                        <span className="font-medium">8회</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>협력 연구</span>
-                        <span className="font-medium">5개 기관</span>
-                      </div>
+                    <div className="text-center">
+                      <p className="text-gray-600 text-sm">클릭하여 상세 실적을 확인하세요</p>
                     </div>
                   </div>
                 </div>
