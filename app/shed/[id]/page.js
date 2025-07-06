@@ -29,6 +29,9 @@ export default function PostPage({ params }) {
         const data = await response.json();
         const foundPost = data.posts.find(p => p.id === id);
         if (foundPost) {
+          console.log('Found post:', foundPost);
+          console.log('Post content:', foundPost.content);
+          console.log('Post images:', foundPost.images);
           setPost(foundPost);
         } else {
           router.push('/shed');

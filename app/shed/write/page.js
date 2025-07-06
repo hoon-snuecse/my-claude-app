@@ -194,6 +194,7 @@ function WritePageContent() {
         }
 
         const data = await response.json();
+        console.log('Upload response:', data);
 
         // Add uploaded image to form data
         setFormData(prev => ({
