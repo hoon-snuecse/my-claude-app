@@ -148,7 +148,13 @@ export default function ShedPage() {
                             <Icon className="w-5 h-5 text-blue-600" />
                           </div>
                           <span className="text-sm text-slate-500">
-                            {new Date(post.createdAt).toLocaleDateString('ko-KR')}
+                            {post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                              year: 'numeric',
+                              month: 'numeric',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            }) : '날짜 없음'}
                           </span>
                         </div>
                         

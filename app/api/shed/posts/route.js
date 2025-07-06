@@ -59,8 +59,8 @@ export async function POST(request) {
     const newPost = {
       id,
       ...data,
-      createdAt: data.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: data.createdAt || new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+      updatedAt: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
     };
     
     // Add to beginning of array (newest first)

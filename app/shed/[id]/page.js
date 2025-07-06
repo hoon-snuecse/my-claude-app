@@ -78,12 +78,18 @@ export default function PostPage({ params }) {
 
   // Convert markdown-style formatting to HTML
   const formatContent = (content) => {
+    if (!content) return '';
+    
     // First, handle images - including base64 images
     let formatted = content.replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
       (match, alt, src) => {
-        // Add max-width and center the image
-        return `<div class="my-6"><img src="${src}" alt="${alt}" class="max-w-full rounded-lg shadow-md mx-auto" /></div>`;
+        // Check if it's a base64 image
+        if (src.startsWith('data:image')) {
+          return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" style="max-height: 500px;" /></div>`;
+        }
+        // Regular image URL
+        return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" /></div>`;
       }
     );
     
@@ -147,11 +153,14 @@ export default function PostPage({ params }) {
                     <span className="text-sm text-slate-500 flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
-                        {new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                        {post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR', {
                           year: 'numeric',
                           month: 'long',
-                          day: 'numeric'
-                        })}
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          timeZone: 'Asia/Seoul'
+                        }) : '날짜 없음'}
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
@@ -187,17 +196,22 @@ export default function PostPage({ params }) {
               />
               
               {/* Tags */}
-              {post.tags && post.tags.length > 0 && (
+              {post.tags && post.tags.length > 0 ? (
                 <div className="flex flex-wrap gap-2 mt-8 pt-8 border-t border-slate-200">
-                  {post.tags.map((tag) => (
+                  <span className="text-sm text-slate-600 mr-2">태그:</span>
+                  {post.tags.map((tag, index) => (
                     <span
-                      key={tag}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm flex items-center gap-1"
+                      key={`${tag}-${index}`}
+                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm inline-flex items-center gap-1"
                     >
                       <Tag className="w-3 h-3" />
                       {tag}
                     </span>
                   ))}
+                </div>
+              ) : (
+                <div className="mt-8 pt-8 border-t border-slate-200 text-sm text-slate-500">
+                  태그가 없습니다.
                 </div>
               )}
             </div>
