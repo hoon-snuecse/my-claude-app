@@ -86,22 +86,26 @@ export async function POST(request) {
 
     // If there are images, save their metadata
     if (images && images.length > 0) {
-      const imageRecords = images.map((img, index) => ({
-        post_id: newPost.id,
-        file_path: img.path,
-        file_name: img.name,
-        file_size: img.size,
-        mime_type: img.type,
-        display_order: index
-      }));
+      const imageRecords = images
+        .filter(img => img.path) // path가 있는 이미지만 필터링
+        .map((img, index) => ({
+          post_id: newPost.id,
+          file_path: img.path,
+          file_name: img.name || 'untitled',
+          file_size: img.size || 0,
+          mime_type: img.type || 'image/jpeg',
+          display_order: index
+        }));
 
-      const { error: imageError } = await supabase
-        .from('shed_post_images')
-        .insert(imageRecords);
+      if (imageRecords.length > 0) {
+        const { error: imageError } = await supabase
+          .from('shed_post_images')
+          .insert(imageRecords);
 
-      if (imageError) {
-        console.error('Error saving image metadata:', imageError);
-        // Don't fail the whole operation if image metadata fails
+        if (imageError) {
+          console.error('Error saving image metadata:', imageError);
+          // Don't fail the whole operation if image metadata fails
+        }
       }
     }
 
@@ -128,6 +132,13 @@ export async function PUT(request) {
     if (!id) {
       return NextResponse.json({ error: 'Post ID required' }, { status: 400 });
     }
+
+    // Debug log
+    console.log('Update data received:', {
+      tags: updateData.tags,
+      tagsType: Array.isArray(updateData.tags) ? 'array' : typeof updateData.tags,
+      tagsLength: updateData.tags ? updateData.tags.length : 0
+    });
 
     // Update the post
     const { data: updatedPost, error: updateError } = await supabase
@@ -166,14 +177,16 @@ export async function PUT(request) {
 
       // Insert new image records
       if (images && images.length > 0) {
-        const imageRecords = images.map((img, index) => ({
-          post_id: id,
-          file_path: img.path,
-          file_name: img.name,
-          file_size: img.size,
-          mime_type: img.type,
-          display_order: index
-        }));
+        const imageRecords = images
+          .filter(img => img.path) // path가 있는 이미지만 필터링
+          .map((img, index) => ({
+            post_id: id,
+            file_path: img.path,
+            file_name: img.name || 'untitled',
+            file_size: img.size || 0,
+            mime_type: img.type || 'image/jpeg',
+            display_order: index
+          }));
 
         const { error: imageError } = await supabase
           .from('shed_post_images')

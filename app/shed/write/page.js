@@ -102,6 +102,13 @@ function WritePageContent() {
         }))
       };
       
+      // Debug log
+      console.log('Sending payload:', {
+        tags: payload.tags,
+        tagsType: Array.isArray(payload.tags) ? 'array' : typeof payload.tags,
+        images: payload.images.length
+      });
+      
       if (editId) {
         payload.id = editId;
       }
