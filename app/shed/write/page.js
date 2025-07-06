@@ -102,6 +102,16 @@ function WritePageContent() {
         payload.createdAt = new Date().toISOString();
       }
 
+      // Check payload size before sending
+      const payloadSize = JSON.stringify(payload).length;
+      console.log(`Sending ${method} request with payload size: ${(payloadSize / 1024).toFixed(2)}KB`);
+      
+      if (payloadSize > 512 * 1024) { // 512KB limit
+        alert(`글의 크기가 너무 큽니다 (${(payloadSize / 1024).toFixed(0)}KB).\n\n이미지를 줄이거나 내용을 줄여주세요.\n최대 크기: 512KB`);
+        setLoading(false);
+        return;
+      }
+
       const response = await fetch(endpoint, {
         method,
         headers: {
@@ -110,16 +120,32 @@ function WritePageContent() {
         body: JSON.stringify(payload),
       });
 
+      const responseData = await response.json();
+      
       if (response.ok) {
-        const data = await response.json();
-        router.push(`/shed/${editId || data.id}`);
+        if (responseData.warning) {
+          console.warn('Warning:', responseData.warning);
+        }
+        router.push(`/shed/${editId || responseData.id}`);
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.details || errorData.error || 'Failed to save post');
+        throw new Error(responseData.details || responseData.error || 'Failed to save post');
       }
     } catch (error) {
       console.error('Error saving post:', error);
-      alert(`글 저장 중 오류가 발생했습니다.\n\n${error.message}\n\n이미지가 너무 크면 크기를 줄여서 다시 시도해주세요.`);
+      
+      let errorMessage = '글 저장 중 오류가 발생했습니다.\n\n';
+      
+      if (error.message.includes('large')) {
+        errorMessage += '파일 크기가 너무 큽니다. 이미지를 더 압축하거나 일부를 제거해주세요.';
+      } else if (error.message.includes('Permission')) {
+        errorMessage += '파일 저장 권한이 없습니다. 관리자에게 문의하세요.';
+      } else if (error.message.includes('Storage full')) {
+        errorMessage += '저장 공간이 부족합니다. 관리자에게 문의하세요.';
+      } else {
+        errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -154,8 +180,8 @@ function WritePageContent() {
     }
   };
 
-  const resizeImage = (file, maxWidth = 1200, maxHeight = 1200) => {
-    return new Promise((resolve) => {
+  const resizeImage = (file, maxWidth = 800, maxHeight = 800) => {
+    return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const img = new Image();
@@ -183,12 +209,23 @@ function WritePageContent() {
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Convert to base64 with compression
-          const base64 = canvas.toDataURL(file.type, 0.8);
+          // Try different compression levels to get under size limit
+          let quality = 0.7;
+          let base64 = canvas.toDataURL('image/jpeg', quality);
+          
+          // If still too large, reduce quality further
+          while (base64.length > 300 * 1024 && quality > 0.3) { // 300KB per image max
+            quality -= 0.1;
+            base64 = canvas.toDataURL('image/jpeg', quality);
+          }
+          
+          console.log(`Image compressed: ${file.name}, quality: ${quality}, size: ${(base64.length / 1024).toFixed(0)}KB`);
           resolve(base64);
         };
+        img.onerror = () => reject(new Error('Failed to load image'));
         img.src = e.target.result;
       };
+      reader.onerror = () => reject(new Error('Failed to read file'));
       reader.readAsDataURL(file);
     });
   };
@@ -401,7 +438,7 @@ function WritePageContent() {
                               <p className="mb-2 text-sm text-slate-500">
                                 <span className="font-semibold">클릭하여 업로드</span> 또는 드래그 앤 드롭
                               </p>
-                              <p className="text-xs text-slate-500">PNG, JPG, GIF (최대 10MB)</p>
+                              <p className="text-xs text-slate-500">PNG, JPG, GIF (최대 5MB, 자동 압축됨)</p>
                             </>
                           )}
                         </div>
