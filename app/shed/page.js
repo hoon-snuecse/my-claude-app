@@ -43,10 +43,19 @@ export default function ShedPage() {
       const response = await fetch('/api/shed/posts/supabase');
       if (response.ok) {
         const data = await response.json();
+        console.log('Fetched posts data:', data); // Debug log
         setPosts(data.posts || []);
         if (data.warning) {
           console.warn('Warning:', data.warning);
         }
+        // Log first post details for debugging
+        if (data.posts && data.posts.length > 0) {
+          console.log('First post:', data.posts[0]);
+          console.log('First post tags:', data.posts[0].tags);
+          console.log('First post images:', data.posts[0].images);
+        }
+      } else {
+        console.error('API response not ok:', response.status, response.statusText);
       }
     } catch (error) {
       console.error('Failed to fetch posts:', error);
@@ -152,13 +161,18 @@ export default function ShedPage() {
                             <Icon className="w-5 h-5 text-blue-600" />
                           </div>
                           <span className="text-sm text-slate-500">
-                            {post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR', {
-                              year: 'numeric',
-                              month: 'numeric',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            }) : '날짜 없음'}
+                            {post.createdAt ? 
+                              (typeof post.createdAt === 'string' && post.createdAt.includes('오') ? 
+                                post.createdAt : 
+                                new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                                  year: 'numeric',
+                                  month: 'numeric',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                  timeZone: 'Asia/Seoul'
+                                })
+                              ) : '날짜 없음'}
                           </span>
                         </div>
                         

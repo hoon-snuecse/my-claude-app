@@ -151,14 +151,18 @@ export default function PostPage({ params }) {
                     <span className="text-sm text-slate-500 flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
-                        {post.createdAt ? new Date(post.createdAt).toLocaleDateString('ko-KR', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          timeZone: 'Asia/Seoul'
-                        }) : '날짜 없음'}
+                        {post.createdAt ? 
+                          (typeof post.createdAt === 'string' && post.createdAt.includes('오') ? 
+                            post.createdAt : 
+                            new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              timeZone: 'Asia/Seoul'
+                            })
+                          ) : '날짜 없음'}
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
