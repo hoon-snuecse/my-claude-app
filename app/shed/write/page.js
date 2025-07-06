@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Coffee, Hammer, Camera, Music, Film, Plane, Plus, Save, X, Loader2, Image as ImageIcon, Upload } from 'lucide-react';
 import Link from 'next/link';
+import { getShedApiEndpoint } from '@/utils/api-config';
 
 function WritePageContent() {
   const router = useRouter();
@@ -38,7 +39,8 @@ function WritePageContent() {
 
   const loadPost = useCallback(async () => {
     try {
-      const response = await fetch('/api/shed/posts');
+      const endpoint = getShedApiEndpoint();
+      const response = await fetch(endpoint);
       if (response.ok) {
         const data = await response.json();
         const post = data.posts.find(p => p.id === editId);
@@ -88,7 +90,7 @@ function WritePageContent() {
     setLoading(true);
 
     try {
-      const endpoint = '/api/shed/posts';
+      const endpoint = getShedApiEndpoint();
       const method = editId ? 'PUT' : 'POST';
       
       const payload = {

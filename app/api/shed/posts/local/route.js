@@ -5,7 +5,10 @@ import { NextResponse } from 'next/server';
 let memoryPosts = [];
 
 export async function GET() {
-  return NextResponse.json({ posts: memoryPosts });
+  return NextResponse.json({ 
+    posts: memoryPosts,
+    warning: 'Using temporary memory storage - data will be lost on server restart'
+  });
 }
 
 export async function POST(request) {
@@ -25,8 +28,8 @@ export async function POST(request) {
     const newPost = {
       id,
       ...data,
-      createdAt: data.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: data.createdAt || new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+      updatedAt: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
     };
     
     memoryPosts.unshift(newPost);
@@ -45,6 +48,63 @@ export async function POST(request) {
   } catch (error) {
     return NextResponse.json({ 
       error: 'Failed to save post', 
+      details: error.message 
+    }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const data = await request.json();
+    const { id, ...updateData } = data;
+    
+    const index = memoryPosts.findIndex(p => p.id === id);
+    if (index === -1) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+    
+    memoryPosts[index] = {
+      ...memoryPosts[index],
+      ...updateData,
+      updatedAt: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    };
+    
+    return NextResponse.json({ 
+      success: true, 
+      post: memoryPosts[index],
+      warning: 'Data stored in memory only - will be lost on server restart'
+    });
+  } catch (error) {
+    return NextResponse.json({ 
+      error: 'Failed to update post', 
+      details: error.message 
+    }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Post ID required' }, { status: 400 });
+    }
+    
+    const initialLength = memoryPosts.length;
+    memoryPosts = memoryPosts.filter(p => p.id !== id);
+    
+    if (memoryPosts.length === initialLength) {
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+    }
+    
+    return NextResponse.json({ 
+      success: true,
+      warning: 'Deleted from memory only - change is temporary'
+    });
+  } catch (error) {
+    return NextResponse.json({ 
+      error: 'Failed to delete post', 
       details: error.message 
     }, { status: 500 });
   }
