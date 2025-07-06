@@ -114,11 +114,12 @@ function WritePageContent() {
         const data = await response.json();
         router.push(`/shed/${editId || data.id}`);
       } else {
-        throw new Error('Failed to save post');
+        const errorData = await response.json();
+        throw new Error(errorData.details || errorData.error || 'Failed to save post');
       }
     } catch (error) {
       console.error('Error saving post:', error);
-      alert('글 저장 중 오류가 발생했습니다.');
+      alert(`글 저장 중 오류가 발생했습니다.\n\n${error.message}\n\n이미지가 너무 크면 크기를 줄여서 다시 시도해주세요.`);
     } finally {
       setLoading(false);
     }
@@ -153,6 +154,45 @@ function WritePageContent() {
     }
   };
 
+  const resizeImage = (file, maxWidth = 1200, maxHeight = 1200) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          // Calculate new dimensions
+          if (width > height) {
+            if (width > maxWidth) {
+              height *= maxWidth / width;
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width *= maxHeight / height;
+              height = maxHeight;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert to base64 with compression
+          const base64 = canvas.toDataURL(file.type, 0.8);
+          resolve(base64);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
@@ -160,27 +200,35 @@ function WritePageContent() {
     setUploadingImage(true);
     const newImages = [];
 
-    for (const file of files) {
-      // Convert to base64 for storage
-      const reader = new FileReader();
-      const base64 = await new Promise((resolve) => {
-        reader.onload = (e) => resolve(e.target.result);
-        reader.readAsDataURL(file);
-      });
+    try {
+      for (const file of files) {
+        // Check file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          alert(`${file.name}의 크기가 5MB를 초과합니다. 더 작은 이미지를 선택해주세요.`);
+          continue;
+        }
 
-      newImages.push({
-        id: Date.now() + Math.random(),
-        name: file.name,
-        data: base64,
-        type: file.type
-      });
+        // Resize and compress image
+        const base64 = await resizeImage(file);
+
+        newImages.push({
+          id: Date.now() + Math.random(),
+          name: file.name,
+          data: base64,
+          type: file.type
+        });
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, ...newImages]
+      }));
+    } catch (error) {
+      console.error('Image upload error:', error);
+      alert('이미지 업로드 중 오류가 발생했습니다.');
+    } finally {
+      setUploadingImage(false);
     }
-
-    setFormData(prev => ({
-      ...prev,
-      images: [...prev.images, ...newImages]
-    }));
-    setUploadingImage(false);
   };
 
   const removeImage = (imageId) => {

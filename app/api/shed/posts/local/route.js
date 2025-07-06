@@ -1,0 +1,51 @@
+import { NextResponse } from 'next/server';
+
+// This is a fallback API that stores data in memory
+// Use only for testing when file system fails
+let memoryPosts = [];
+
+export async function GET() {
+  return NextResponse.json({ posts: memoryPosts });
+}
+
+export async function POST(request) {
+  try {
+    const data = await request.json();
+    
+    const slug = data.title
+      .toLowerCase()
+      .replace(/[가-힣]/g, '')
+      .replace(/[^a-z0-9]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+      .substring(0, 30);
+    
+    const id = `${Date.now()}${slug ? '-' + slug : ''}`;
+    
+    const newPost = {
+      id,
+      ...data,
+      createdAt: data.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    
+    memoryPosts.unshift(newPost);
+    
+    // Keep only last 10 posts in memory
+    if (memoryPosts.length > 10) {
+      memoryPosts = memoryPosts.slice(0, 10);
+    }
+    
+    return NextResponse.json({ 
+      success: true, 
+      id: newPost.id,
+      post: newPost,
+      warning: 'Data stored in memory only - will be lost on server restart'
+    });
+  } catch (error) {
+    return NextResponse.json({ 
+      error: 'Failed to save post', 
+      details: error.message 
+    }, { status: 500 });
+  }
+}

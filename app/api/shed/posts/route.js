@@ -43,6 +43,16 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
+    
+    // Check if data size is too large (rough estimate)
+    const dataSize = JSON.stringify(data).length;
+    if (dataSize > 1024 * 1024) { // 1MB limit for single post
+      return NextResponse.json({ 
+        error: 'Post data too large', 
+        details: 'Please reduce image sizes or remove some images' 
+      }, { status: 413 });
+    }
+    
     const posts = await loadPosts();
     
     // Generate unique ID - convert to ASCII-only slug
@@ -74,7 +84,11 @@ export async function POST(request) {
       post: newPost 
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to save post' }, { status: 500 });
+    console.error('Error saving post:', error);
+    return NextResponse.json({ 
+      error: 'Failed to save post', 
+      details: error.message 
+    }, { status: 500 });
   }
 }
 
