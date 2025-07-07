@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { 
   Home, 
-  FlaskConical, 
+  FlaskConical,
+  Microscope, 
   BookOpen, 
   BarChart3,
   Hammer,
@@ -40,9 +41,14 @@ export default function Navigation() {
       icon: Home,
     },
     { 
+      href: '/activities', 
+      label: '활동', 
+      icon: FlaskConical,
+    },
+    { 
       href: '/research', 
       label: '연구', 
-      icon: FlaskConical,
+      icon: Microscope,
     },
     { 
       href: '/teaching', 

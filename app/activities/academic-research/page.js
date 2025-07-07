@@ -93,22 +93,22 @@ export default function AcademicResearchPage() {
       {/* Navigation */}
       <div className="pt-8 px-4">
         <div className="container-custom">
-          <Link href="/research" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors mb-6">
+          <Link href="/activities" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors mb-6">
             <ChevronLeft className="w-4 h-4" />
-            <span>연구 및 강의로 돌아가기</span>
+            <span>활동 및 협력으로 돌아가기</span>
           </Link>
 
           {/* Sub-navigation */}
           <div className="flex flex-wrap items-center gap-6 text-lg bg-white/90 backdrop-blur-lg border border-slate-200 rounded-lg p-4 shadow-sm">
-            <Link href="/research/school-innovation" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
+            <Link href="/activities/school-innovation" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
               학교 혁신
             </Link>
             <span className="text-slate-300">|</span>
-            <Link href="/research/academic-research" className="text-blue-700 font-bold hover:text-blue-800 transition-colors">
+            <Link href="/activities/academic-research" className="text-blue-700 font-bold hover:text-blue-800 transition-colors">
               연구 활동
             </Link>
             <span className="text-slate-300">|</span>
-            <Link href="/research/lectures-advisory" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
+            <Link href="/activities/lectures-advisory" className="text-slate-700 hover:text-blue-600 transition-colors font-medium">
               강의 및 자문
             </Link>
           </div>

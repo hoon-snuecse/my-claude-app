@@ -1,57 +1,64 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { GraduationCap, BarChart2, Network, Plus, PenTool, ChevronRight, Calendar, Clock, Tag } from 'lucide-react';
 import Link from 'next/link';
-import { FileText, GraduationCap, BookOpen, Users } from 'lucide-react';
 
 export default function ResearchPage() {
   const [fadeIn, setFadeIn] = useState({
     hero: false,
-    card1: false,
-    card2: false,
-    card3: false,
+    content: false,
+    items: false,
   });
+
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const categories = [
+    { id: 'evaluation', name: '교육평가', icon: GraduationCap, desc: '평가 방법론' },
+    { id: 'pisa', name: 'PISA 분석', icon: BarChart2, desc: '국제 학업성취도' },
+    { id: 'sna', name: '소셜네트워크분석', icon: Network, desc: 'SNA 연구' },
+    { id: 'others', name: '기타', icon: Plus, desc: '기타 연구' },
+  ];
 
   useEffect(() => {
     const timers = [
       setTimeout(() => setFadeIn(prev => ({ ...prev, hero: true })), 100),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, card1: true })), 500),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, card2: true })), 700),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, card3: true })), 900),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, content: true })), 500),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, items: true })), 700),
     ];
+
+    // 포스트 데이터 로드
+    fetchPosts();
 
     return () => timers.forEach(timer => clearTimeout(timer));
   }, []);
 
-  const researchAreas = [
-    {
-      icon: Users,
-      title: "학교 혁신",
-      subtitle: "School Innovation",
-      description: "혁신학교 운영 지원, 교원학습공동체 활성화, 교육 현장 평가 방법 개선을 위한 활동",
-      href: "/research/school-innovation",
-      period: "2016-2023",
-      count: "15개 활동"
-    },
-    {
-      icon: FileText,
-      title: "연구 활동",
-      subtitle: "Research Activities",
-      description: "학위논문, 교과서 집필, 학술논문 발표 및 국가기관 연구과제 수행",
-      href: "/research/academic-research",
-      period: "1997-2019",
-      count: "37개 연구"
-    },
-    {
-      icon: BookOpen,
-      title: "강의 및 자문",
-      subtitle: "Lectures & Advisory",
-      description: "대학에서의 강의 활동과 한국교육과정평가원 등 전문기관 자문",
-      href: "/research/lectures-advisory",
-      period: "2004-2022",
-      count: "15개 활동"
+  const fetchPosts = async () => {
+    try {
+      // Use Supabase API
+      const response = await fetch('/api/research/posts/supabase');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Fetched research posts data:', data); // Debug log
+        setPosts(data.posts || []);
+        if (data.warning) {
+          console.warn('Warning:', data.warning);
+        }
+      } else {
+        console.error('API response not ok:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Failed to fetch research posts:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const filteredPosts = selectedCategory === 'all' 
+    ? posts 
+    : posts.filter(post => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen">
@@ -61,116 +68,157 @@ export default function ResearchPage() {
       }`}>
         <div className="container-custom">
           <h1 className="text-5xl md:text-6xl font-space-grotesk font-bold mb-6 bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-transparent">
-            연구 및 강의
+            연구
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-600 mb-8 font-medium">
-            교육 현장과 함께하는 연구자의 기록
+            교육평가와 데이터 분석 연구
+          </p>
+          
+          <p className="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
+            교육평가, PISA 분석, 소셜네트워크분석 등 <strong className="text-slate-700">교육 현장의 데이터를 기반으로 한 연구</strong>. 
+            증거기반 교육정책과 평가방법론 개발을 통해 교육의 질 향상에 기여합니다.
           </p>
         </div>
       </section>
 
-      {/* Main Interests Section */}
-      <section className="py-8 px-4">
-        <div className="container-custom">
-          <div className="quote-sheet max-w-4xl mx-auto mb-16">
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h2 className="text-2xl font-space-grotesk font-semibold text-slate-800 mb-6 text-center">
-                  주요 관심 영역
-                </h2>
+      {/* Category Navigation */}
+      <section className={`py-8 px-4 transition-all duration-1000 ${
+        fadeIn.content ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <div className="container-custom max-w-6xl">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                }`}
+              >
+                전체
+              </button>
+              {categories.map((category) => {
+                const Icon = category.icon;
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                      selectedCategory === category.id
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {category.name}
+                  </button>
+                );
+              })}
+            </div>
+            
+            <Link
+              href="/research/write"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
+            >
+              <PenTool className="w-4 h-4" />
+              글쓰기
+            </Link>
+          </div>
+
+          {/* Posts Grid */}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+          ) : filteredPosts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPosts.map((post) => {
+                const category = categories.find(c => c.id === post.category);
+                const Icon = category?.icon || GraduationCap;
                 
-                <div className="grid md:grid-cols-3 gap-8 text-center">
-                  <div>
-                    <h3 className="text-lg font-semibold text-blue-700 mb-3">학교 혁신 및 교원 전문성</h3>
-                    <ul className="space-y-2 text-slate-600">
-                      <li>• 교원학습공동체 운영</li>
-                      <li>• 학생 주도성과 자치 활동</li>
-                      <li>• 예비교사 및 현직교사 연수</li>
-                      <li>• 교육정책 자문 및 컨설팅</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-semibold text-blue-700 mb-3">교육평가 및 연구 방법</h3>
-                    <ul className="space-y-2 text-slate-600">
-                      <li>• 과정중심평가와 성장중심평가</li>
-                      <li>• 교육평가 도구 개발</li>
-                      <li>• 교육과정-수업-평가-기록 일체화</li>
-                      <li>• 교육 빅데이터 분석과 활용</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-semibold text-blue-700 mb-3">미래 교육</h3>
-                    <ul className="space-y-2 text-slate-600">
-                      <li>• 디지털 리터러시와 ICT 활용</li>
-                      <li>• 블렌디드 러닝 환경 구축</li>
-                      <li>• 스마트 교육 시스템</li>
-                      <li>• AI 시대의 교육 혁신</li>
-                    </ul>
-                  </div>
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/research/${post.id}`}
+                    className="quote-sheet hover:shadow-lg transition-all group"
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-200 rounded-lg flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <span className="text-sm text-slate-500">
+                            {post.createdAt ? 
+                              (typeof post.createdAt === 'string' && post.createdAt.includes('오') ? 
+                                post.createdAt : 
+                                new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                                  year: 'numeric',
+                                  month: 'numeric',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                  timeZone: 'Asia/Seoul'
+                                })
+                              ) : '날짜 없음'}
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                          {post.title}
+                        </h3>
+                        
+                        <p className="text-base text-slate-600 mb-4 line-clamp-3">
+                          {post.summary}
+                        </p>
+                        
+                        <div className="flex items-center justify-between text-sm text-slate-500">
+                          <div className="flex items-center gap-4">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {post.readingTime || '5분'}
+                            </span>
+                            {post.tags && post.tags.length > 0 && (
+                              <span className="flex items-center gap-1">
+                                <Tag className="w-3 h-3" />
+                                {post.tags[0]}
+                              </span>
+                            )}
+                          </div>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="quote-sheet max-w-2xl mx-auto text-center">
+              <div className="relative">
+                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
+                
+                <div className="relative z-10 py-12">
+                  <p className="text-lg text-slate-600 mb-4">
+                    {selectedCategory === 'all' 
+                      ? '아직 작성된 연구가 없습니다.'
+                      : `${categories.find(c => c.id === selectedCategory)?.name} 카테고리에 연구가 없습니다.`}
+                  </p>
+                  <Link
+                    href="/research/write"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <PenTool className="w-4 h-4" />
+                    첫 연구를 작성해보세요
+                  </Link>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Research Areas Cards */}
-      <section className="py-8 px-4">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-8">
-            {researchAreas.map((area, index) => {
-              const Icon = area.icon;
-              return (
-                <Link
-                  key={index}
-                  href={area.href}
-                  className={`quote-sheet hover:shadow-xl transition-all duration-1000 ${
-                    fadeIn[`card${index + 1}`] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                >
-                  <div className="relative">
-                    <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                    
-                    <div className="relative z-10">
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-space-grotesk font-bold text-slate-800 mb-1">
-                            {area.title}
-                          </h3>
-                          <p className="text-base text-blue-600 italic">
-                            {area.subtitle}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <p className="text-base text-slate-600 mb-4 leading-relaxed">
-                        {area.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-4 text-slate-500">
-                          <span>{area.period}</span>
-                          <span className="w-1 h-1 bg-slate-400 rounded-full"></span>
-                          <span>{area.count}</span>
-                        </div>
-                        <span className="text-blue-600 font-semibold">
-                          자세히 보기 →
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+          )}
         </div>
       </section>
     </div>
