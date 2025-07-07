@@ -180,6 +180,10 @@ function WritePageContent() {
     setUploadingImage(true);
 
     try {
+      // Import Supabase client
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+
       for (const file of files) {
         // Check file size (10MB limit)
         if (file.size > 10 * 1024 * 1024) {
@@ -187,39 +191,57 @@ function WritePageContent() {
           continue;
         }
 
-        // Upload to Supabase Storage
-        const formData = new FormData();
-        formData.append('file', file);
+        // Generate unique file name
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+        const filePath = `temp/images/${fileName}`;
 
-        const response = await fetch('/api/research/upload', {
-          method: 'POST',
-          body: formData,
-        });
+        // Upload directly to Supabase Storage
+        const { data, error } = await supabase.storage
+          .from('research-images')
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.details || 'Upload failed');
+        if (error) {
+          console.error('Image upload error:', error);
+          
+          // More specific error messages
+          if (error.message?.includes('row too large')) {
+            throw new Error(`파일 크기가 너무 큽니다. 10MB 이하의 이미지를 선택해주세요.`);
+          } else if (error.message?.includes('Invalid MIME type') || error.message?.includes('mime')) {
+            throw new Error(`지원하지 않는 이미지 형식입니다. (${file.type || '알 수 없음'})`);
+          } else if (error.message?.includes('bucket') || error.message?.includes('not found')) {
+            throw new Error('Storage가 올바르게 설정되지 않았습니다. Supabase 대시보드에서 research-images 버킷을 확인해주세요.');
+          } else {
+            throw new Error(error.message || 'Upload failed');
+          }
         }
 
-        const data = await response.json();
-        console.log('Upload response:', data);
+        console.log('Image upload success:', data);
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('research-images')
+          .getPublicUrl(filePath);
 
         // Add uploaded image to form data
         setFormData(prev => ({
           ...prev,
           images: [...prev.images, {
             id: Date.now() + Math.random(),
-            name: data.name,
-            url: data.url,
-            path: data.path,
-            size: data.size,
-            type: data.type
+            name: file.name,
+            url: publicUrl,
+            path: filePath,
+            size: file.size,
+            type: file.type
           }]
         }));
       }
     } catch (error) {
       console.error('Image upload error:', error);
-      alert('이미지 업로드 중 오류가 발생했습니다.');
+      alert(`이미지 업로드 중 오류가 발생했습니다.\n\n${error.message}`);
     } finally {
       setUploadingImage(false);
     }
@@ -229,9 +251,16 @@ function WritePageContent() {
     try {
       // If image has a path (uploaded to Supabase), delete it
       if (image.path) {
-        await fetch(`/api/research/upload?path=${encodeURIComponent(image.path)}`, {
-          method: 'DELETE',
-        });
+        const { createClient } = await import('@/lib/supabase/client');
+        const supabase = createClient();
+        
+        const { error } = await supabase.storage
+          .from('research-images')
+          .remove([image.path]);
+          
+        if (error) {
+          console.error('Error deleting image:', error);
+        }
       }
 
       setFormData(prev => ({
@@ -325,47 +354,68 @@ function WritePageContent() {
     setUploadingFile(true);
 
     try {
+      // Import Supabase client
+      const { createClient } = await import('@/lib/supabase/client');
+      const supabase = createClient();
+
       for (const file of files) {
-        // Check file size (100MB limit)
-        if (file.size > 100 * 1024 * 1024) {
-          alert(`${file.name}의 크기가 100MB를 초과합니다. 더 작은 파일을 선택해주세요.`);
+        // Check file size (50MB limit - Supabase free tier)
+        if (file.size > 50 * 1024 * 1024) {
+          alert(`${file.name}의 크기가 50MB를 초과합니다. 더 작은 파일을 선택해주세요.\n(Supabase 무료 플랜 제한)`);
           continue;
         }
 
-        // Upload to Supabase Storage
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('fileType', 'document');
+        // Generate unique file name
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+        const filePath = `temp/documents/${fileName}`;
 
-        const response = await fetch('/api/research/upload', {
-          method: 'POST',
-          body: formData,
-        });
+        // Upload directly to Supabase Storage
+        const { data, error } = await supabase.storage
+          .from('research-images')
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.details || 'Upload failed');
+        if (error) {
+          console.error('File upload error:', error);
+          
+          // More specific error messages
+          if (error.message?.includes('row too large')) {
+            throw new Error(`파일 크기가 너무 큽니다. 50MB 이하의 파일을 선택해주세요.`);
+          } else if (error.message?.includes('Invalid MIME type') || error.message?.includes('mime')) {
+            throw new Error(`지원하지 않는 파일 형식입니다. (${file.type || '알 수 없음'})\n현재 지원: PDF, DOC, WAV, MP3, MP4`);
+          } else if (error.message?.includes('bucket') || error.message?.includes('not found')) {
+            throw new Error('Storage가 올바르게 설정되지 않았습니다. Supabase 대시보드에서 research-images 버킷을 확인해주세요.');
+          } else {
+            throw new Error(error.message || 'Upload failed');
+          }
         }
 
-        const data = await response.json();
-        console.log('File upload response:', data);
+        console.log('File upload success:', data);
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('research-images')
+          .getPublicUrl(filePath);
 
         // Add uploaded file to form data
         setFormData(prev => ({
           ...prev,
           files: [...prev.files, {
             id: Date.now() + Math.random(),
-            name: data.name,
-            url: data.url,
-            path: data.path,
-            size: data.size,
-            type: data.type
+            name: file.name,
+            url: publicUrl,
+            path: filePath,
+            size: file.size,
+            type: file.type
           }]
         }));
       }
     } catch (error) {
       console.error('File upload error:', error);
-      alert('파일 업로드 중 오류가 발생했습니다.');
+      alert(`파일 업로드 중 오류가 발생했습니다.\n\n${error.message}`);
     } finally {
       setUploadingFile(false);
     }
@@ -389,9 +439,16 @@ function WritePageContent() {
     try {
       // If file has a path (uploaded to Supabase), delete it
       if (file.path) {
-        await fetch(`/api/research/upload?path=${encodeURIComponent(file.path)}`, {
-          method: 'DELETE',
-        });
+        const { createClient } = await import('@/lib/supabase/client');
+        const supabase = createClient();
+        
+        const { error } = await supabase.storage
+          .from('research-images')
+          .remove([file.path]);
+          
+        if (error) {
+          console.error('Error deleting file:', error);
+        }
       }
 
       setFormData(prev => ({
@@ -665,7 +722,7 @@ function WritePageContent() {
                           <p className="text-sm text-slate-500">
                             <span className="font-semibold">문서 파일 업로드</span>
                           </p>
-                          <p className="text-xs text-slate-500">PDF, DOC, WAV, MP3, MP4 (최대 100MB)</p>
+                          <p className="text-xs text-slate-500">PDF, DOC, WAV, MP3, MP4 (최대 50MB)</p>
                         </div>
                         <input
                           type="file"

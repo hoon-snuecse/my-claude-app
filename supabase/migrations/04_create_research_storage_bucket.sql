@@ -4,7 +4,7 @@ BEGIN
   -- Update existing bucket to allow PDF and document types
   UPDATE storage.buckets 
   SET 
-    file_size_limit = 104857600, -- 100MB limit per file (for video files)
+    file_size_limit = 52428800, -- 50MB limit per file (Supabase free tier limit)
     allowed_mime_types = ARRAY[
       'image/jpeg', 
       'image/png', 
@@ -14,8 +14,10 @@ BEGIN
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'audio/wav',
+      'audio/x-wav',
       'audio/mpeg',
       'audio/mp3',
+      'audio/mp4',
       'video/mp4',
       'video/mpeg'
     ]
@@ -28,7 +30,7 @@ BEGIN
       'research-images', 
       'research-images', 
       true, 
-      104857600,
+      52428800,
       ARRAY[
         'image/jpeg', 
         'image/png', 
@@ -38,8 +40,10 @@ BEGIN
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'audio/wav',
+        'audio/x-wav',
         'audio/mpeg',
         'audio/mp3',
+        'audio/mp4',
         'video/mp4',
         'video/mpeg'
       ]
