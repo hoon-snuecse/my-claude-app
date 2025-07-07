@@ -424,22 +424,24 @@ function WritePageContent() {
                               alt={image.name}
                               className="w-full h-24 object-cover rounded-lg border border-slate-200"
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center gap-2">
+                            <div className="absolute inset-0 bg-black bg-opacity-40 opacity-100 rounded-lg flex items-center justify-center gap-2">
                               <button
                                 type="button"
                                 onClick={() => insertImageToContent(image)}
-                                className="p-1 bg-white rounded text-slate-700 hover:bg-slate-100"
+                                className="px-2 py-1 bg-white rounded text-slate-700 hover:bg-blue-100 transition-colors flex items-center gap-1 text-xs font-medium shadow-sm"
                                 title="본문에 삽입"
                               >
                                 <ImageIcon className="w-4 h-4" />
+                                삽입
                               </button>
                               <button
                                 type="button"
                                 onClick={() => removeImage(image)}
-                                className="p-1 bg-white rounded text-red-600 hover:bg-red-50"
+                                className="px-2 py-1 bg-white rounded text-red-600 hover:bg-red-100 transition-colors flex items-center gap-1 text-xs font-medium shadow-sm"
                                 title="삭제"
                               >
                                 <X className="w-4 h-4" />
+                                삭제
                               </button>
                             </div>
                             <p className="text-xs text-slate-500 mt-1 truncate">{image.name}</p>
