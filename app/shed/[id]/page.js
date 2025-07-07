@@ -289,7 +289,7 @@ export default function PostPage({ params }) {
         </article>
 
         {/* Simple navigation links */}
-        <div className="mt-12 pt-6 border-t border-slate-200 flex justify-center gap-6 text-sm">
+        <div className="mt-12 pt-6 border-t border-slate-200 flex justify-center gap-6 text-sm relative z-20">
           <Link href="/shed" className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
             <ChevronLeft className="w-4 h-4" />
             <span>목록으로</span>

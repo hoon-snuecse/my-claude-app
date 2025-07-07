@@ -77,17 +77,17 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#1e3a8a" />
       </head>
-      <body className="font-inter antialiased min-h-screen">
+      <body className="font-inter antialiased">
         <Providers>
           {/* 청사진 배경 */}
           <BlueprintBackground />
           
-          <div className="flex flex-col min-h-screen relative z-10">
+          <div className="relative z-10">
             {/* 네비게이션 */}
             <Navigation />
             
             {/* 메인 콘텐츠 */}
-            <main className="flex-grow">
+            <main>
               {children}
             </main>
             
