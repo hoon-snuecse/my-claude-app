@@ -94,20 +94,82 @@ export default function PostPage({ params }) {
       }
     );
     
-    // Then handle other markdown
-    return formatted
-      .split('\n\n')
-      .map(paragraph => {
-        // Don't wrap images in p tags
-        if (paragraph.includes('<img') || paragraph.includes('<div')) {
-          return paragraph;
+    // Split by lines for more precise handling
+    const lines = formatted.split('\n');
+    const htmlLines = [];
+    let inBlockquote = false;
+    let blockquoteContent = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Handle blockquotes
+      if (line.startsWith('>')) {
+        inBlockquote = true;
+        blockquoteContent.push(line.substring(1).trim());
+      } else if (inBlockquote && line.trim() === '') {
+        // End of blockquote
+        htmlLines.push(`<blockquote class="border-l-4 border-blue-500 pl-4 my-4 text-slate-600 italic">${blockquoteContent.join(' ')}</blockquote>`);
+        blockquoteContent = [];
+        inBlockquote = false;
+      } else if (inBlockquote) {
+        // Continue blockquote
+        blockquoteContent.push(line.trim());
+      } else {
+        // Handle headings
+        if (line.startsWith('### ')) {
+          htmlLines.push(`<h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">${line.substring(4)}</h3>`);
+        } else if (line.startsWith('## ')) {
+          htmlLines.push(`<h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">${line.substring(3)}</h2>`);
+        } else if (line.startsWith('# ')) {
+          htmlLines.push(`<h1 class="text-3xl font-bold text-slate-800 mt-8 mb-4">${line.substring(2)}</h1>`);
+        } else if (line.trim() === '') {
+          // Empty line
+          htmlLines.push('');
+        } else if (line.includes('<img') || line.includes('<div')) {
+          // Already formatted images
+          htmlLines.push(line);
+        } else {
+          // Regular paragraph
+          htmlLines.push(line);
         }
-        return `<p class="mb-4">${paragraph}</p>`;
+      }
+    }
+    
+    // Close any remaining blockquote
+    if (inBlockquote && blockquoteContent.length > 0) {
+      htmlLines.push(`<blockquote class="border-l-4 border-blue-500 pl-4 my-4 text-slate-600 italic">${blockquoteContent.join(' ')}</blockquote>`);
+    }
+    
+    // Join lines and handle inline formatting
+    formatted = htmlLines.join('\n');
+    
+    // Group consecutive non-HTML lines into paragraphs
+    formatted = formatted
+      .split('\n\n')
+      .map(block => {
+        // Skip if it's already HTML
+        if (block.includes('<h1') || block.includes('<h2') || block.includes('<h3') || 
+            block.includes('<blockquote') || block.includes('<img') || block.includes('<div')) {
+          return block;
+        }
+        // Skip empty blocks
+        if (block.trim() === '') {
+          return '';
+        }
+        // Wrap in paragraph
+        return `<p class="mb-4">${block}</p>`;
       })
-      .join('')
+      .filter(block => block !== '')
+      .join('\n');
+    
+    // Apply inline formatting
+    formatted = formatted
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-700 underline">$1</a>');
+    
+    return formatted;
   };
 
   return (
