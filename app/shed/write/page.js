@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Coffee, Hammer, Camera, Music, Film, Plane, Plus, Save, X, Loader2, Image as ImageIcon, Upload } from 'lucide-react';
+import { Coffee, Hammer, Camera, Music, Film, Plane, Plus, Save, X, Loader2, Image as ImageIcon, Upload, FileText } from 'lucide-react';
 import Link from 'next/link';
+import matter from 'gray-matter';
 
 function WritePageContent() {
   const router = useRouter();
@@ -244,6 +245,50 @@ function WritePageContent() {
     }));
   };
 
+  const handleMdUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file || !file.name.endsWith('.md')) {
+      alert('마크다운(.md) 파일을 선택해주세요.');
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const { data, content } = matter(text);
+
+      // Update form with parsed data
+      setFormData(prev => ({
+        ...prev,
+        title: data.title || prev.title,
+        category: data.category || prev.category,
+        content: content || prev.content,
+        summary: data.summary || prev.summary,
+        tags: data.tags || prev.tags,
+        isAIGenerated: data.isAIGenerated !== undefined ? data.isAIGenerated : prev.isAIGenerated
+      }));
+
+      // Check if category exists, if not add it as custom
+      if (data.category && !categories.some(cat => cat.id === data.category)) {
+        setCategories(prev => [...prev, {
+          id: data.category,
+          name: data.category,
+          icon: Plus,
+          desc: 'Imported category'
+        }]);
+      }
+
+      // Handle images if present in front matter
+      if (data.images && Array.isArray(data.images)) {
+        alert('이미지 정보가 포함되어 있습니다. 이미지 파일은 별도로 업로드해주세요.');
+      }
+
+      alert('마크다운 파일을 성공적으로 불러왔습니다.');
+    } catch (error) {
+      console.error('Error parsing markdown file:', error);
+      alert('마크다운 파일을 읽는 중 오류가 발생했습니다.');
+    }
+  };
+
   return (
     <div className="min-h-screen py-16 px-4">
       <div className="container-custom max-w-4xl">
@@ -263,6 +308,45 @@ function WritePageContent() {
               </h1>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* MD File Upload */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    마크다운 파일로 불러오기 (선택사항)
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <label className="flex items-center gap-2 px-4 py-2 bg-white text-slate-700 rounded-lg border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors">
+                      <FileText className="w-5 h-5" />
+                      <span>MD 파일 선택</span>
+                      <input
+                        type="file"
+                        accept=".md"
+                        onChange={handleMdUpload}
+                        className="hidden"
+                      />
+                    </label>
+                    <span className="text-sm text-slate-600">
+                      외부에서 작성한 마크다운 파일을 업로드하여 내용을 자동으로 채울 수 있습니다.
+                    </span>
+                  </div>
+                  <div className="mt-2 text-sm">
+                    <a 
+                      href="/templates/shed-post-template.md" 
+                      download="blog-post-template.md"
+                      className="text-blue-600 hover:text-blue-700 underline"
+                    >
+                      템플릿 다운로드
+                    </a>
+                    <span className="text-slate-500 mx-2">|</span>
+                    <Link 
+                      href="/MD_UPLOAD_GUIDE"
+                      target="_blank"
+                      className="text-blue-600 hover:text-blue-700 underline"
+                    >
+                      사용 가이드
+                    </Link>
+                  </div>
+                </div>
+
                 {/* Title */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">
