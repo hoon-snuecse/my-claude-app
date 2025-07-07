@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { GraduationCap, BarChart2, Network, Plus, Save, X, Loader2, Image as ImageIcon, Upload, FileText, Paperclip } from 'lucide-react';
+import { GraduationCap, BarChart2, Network, Plus, Save, X, Loader2, Image as ImageIcon, Upload, FileText, Paperclip, Music, Video } from 'lucide-react';
 import Link from 'next/link';
 import matter from 'gray-matter';
 
@@ -326,9 +326,9 @@ function WritePageContent() {
 
     try {
       for (const file of files) {
-        // Check file size (20MB limit)
-        if (file.size > 20 * 1024 * 1024) {
-          alert(`${file.name}의 크기가 20MB를 초과합니다. 더 작은 파일을 선택해주세요.`);
+        // Check file size (100MB limit)
+        if (file.size > 100 * 1024 * 1024) {
+          alert(`${file.name}의 크기가 100MB를 초과합니다. 더 작은 파일을 선택해주세요.`);
           continue;
         }
 
@@ -369,6 +369,20 @@ function WritePageContent() {
     } finally {
       setUploadingFile(false);
     }
+  };
+
+  // Get file icon based on mime type or file name
+  const getFileIcon = (file) => {
+    const mimeType = file.type;
+    const fileName = file.name.toLowerCase();
+    
+    if (mimeType?.startsWith('audio/') || fileName.endsWith('.wav') || fileName.endsWith('.mp3')) {
+      return Music;
+    }
+    if (mimeType?.startsWith('video/') || fileName.endsWith('.mp4')) {
+      return Video;
+    }
+    return Paperclip;
   };
 
   const removeFile = async (file) => {
@@ -651,12 +665,12 @@ function WritePageContent() {
                           <p className="text-sm text-slate-500">
                             <span className="font-semibold">문서 파일 업로드</span>
                           </p>
-                          <p className="text-xs text-slate-500">PDF, DOC, DOCX (최대 20MB)</p>
+                          <p className="text-xs text-slate-500">PDF, DOC, WAV, MP3, MP4 (최대 100MB)</p>
                         </div>
                         <input
                           type="file"
                           className="hidden"
-                          accept=".pdf,.doc,.docx"
+                          accept=".pdf,.doc,.docx,.wav,.mp3,.mp4"
                           multiple
                           onChange={handleFileUpload}
                           disabled={uploadingFile}
@@ -670,7 +684,10 @@ function WritePageContent() {
                         {formData.files.map((file) => (
                           <div key={file.id} className="flex items-center justify-between bg-slate-50 p-3 rounded-lg">
                             <div className="flex items-center gap-3">
-                              <Paperclip className="w-5 h-5 text-slate-500" />
+                              {(() => {
+                                const FileIcon = getFileIcon(file);
+                                return <FileIcon className="w-5 h-5 text-slate-500" />;
+                              })()}
                               <div>
                                 <p className="text-sm font-medium text-slate-700">{file.name}</p>
                                 <p className="text-xs text-slate-500">

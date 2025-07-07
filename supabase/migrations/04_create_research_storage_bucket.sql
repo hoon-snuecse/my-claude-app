@@ -4,7 +4,7 @@ BEGIN
   -- Update existing bucket to allow PDF and document types
   UPDATE storage.buckets 
   SET 
-    file_size_limit = 20971520, -- 20MB limit per file (larger for documents)
+    file_size_limit = 104857600, -- 100MB limit per file (for video files)
     allowed_mime_types = ARRAY[
       'image/jpeg', 
       'image/png', 
@@ -12,7 +12,12 @@ BEGIN
       'image/webp',
       'application/pdf',
       'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'audio/wav',
+      'audio/mpeg',
+      'audio/mp3',
+      'video/mp4',
+      'video/mpeg'
     ]
   WHERE id = 'research-images';
   
@@ -23,7 +28,7 @@ BEGIN
       'research-images', 
       'research-images', 
       true, 
-      20971520,
+      104857600,
       ARRAY[
         'image/jpeg', 
         'image/png', 
@@ -31,7 +36,12 @@ BEGIN
         'image/webp',
         'application/pdf',
         'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'audio/wav',
+        'audio/mpeg',
+        'audio/mp3',
+        'video/mp4',
+        'video/mpeg'
       ]
     );
   END IF;

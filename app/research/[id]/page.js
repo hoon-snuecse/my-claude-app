@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus, FileText, Download } from 'lucide-react';
+import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus, FileText, Download, Music, Video } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap = {
@@ -78,6 +78,15 @@ export default function PostPage({ params }) {
   }
 
   const Icon = iconMap[post.category] || GraduationCap;
+
+  // Get file icon based on mime type
+  const getFileIcon = (mimeType) => {
+    if (!mimeType) return FileText;
+    
+    if (mimeType.startsWith('audio/')) return Music;
+    if (mimeType.startsWith('video/')) return Video;
+    return FileText;
+  };
 
   // Convert markdown-style formatting to HTML
   const formatContent = (content) => {
@@ -281,7 +290,10 @@ export default function PostPage({ params }) {
                         className="flex items-center justify-between bg-slate-50 hover:bg-slate-100 p-3 rounded-lg transition-colors group"
                       >
                         <div className="flex items-center gap-3">
-                          <FileText className="w-5 h-5 text-slate-500" />
+                          {(() => {
+                            const FileIcon = getFileIcon(file.type);
+                            return <FileIcon className="w-5 h-5 text-slate-500" />;
+                          })()}
                           <div>
                             <p className="text-sm font-medium text-slate-700 group-hover:text-blue-600 transition-colors">
                               {file.name}
