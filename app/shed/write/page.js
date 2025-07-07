@@ -238,11 +238,33 @@ function WritePageContent() {
   };
 
   const insertImageToContent = (image) => {
+    // Get the current cursor position or insert at the end
+    const textarea = document.querySelector('textarea[name="content"]');
+    const cursorPos = textarea?.selectionStart || formData.content.length;
+    
     const imageMarkdown = `\n![${image.name}](${image.url})\n`;
+    
+    // Insert at cursor position
+    const newContent = 
+      formData.content.slice(0, cursorPos) + 
+      imageMarkdown + 
+      formData.content.slice(cursorPos);
+    
     setFormData(prev => ({
       ...prev,
-      content: prev.content + imageMarkdown
+      content: newContent
     }));
+    
+    // Set cursor position after the inserted image
+    setTimeout(() => {
+      if (textarea) {
+        textarea.focus();
+        textarea.setSelectionRange(
+          cursorPos + imageMarkdown.length, 
+          cursorPos + imageMarkdown.length
+        );
+      }
+    }, 0);
   };
 
   const handleMdUpload = async (e) => {
@@ -458,6 +480,7 @@ function WritePageContent() {
                     내용
                   </label>
                   <textarea
+                    name="content"
                     value={formData.content}
                     onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                     className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"

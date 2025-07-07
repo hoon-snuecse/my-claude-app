@@ -90,7 +90,7 @@ export default function PostPage({ params }) {
       /!\[([^\]]*)\]\(([^)]+)\)/g,
       (match, alt, src) => {
         // Handle all image URLs (Supabase or others)
-        return `<div class="my-6 text-center"><img src="${src}" alt="${alt}" class="inline-block max-w-full rounded-lg shadow-md" style="max-height: 500px;" /></div>`;
+        return `<div class="my-4"><img src="${src}" alt="${alt}" class="max-w-full rounded-lg shadow-md mx-auto" style="max-width: 600px; max-height: 400px; object-fit: contain;" /></div>`;
       }
     );
     
