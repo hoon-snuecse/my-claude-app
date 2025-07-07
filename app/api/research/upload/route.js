@@ -7,6 +7,7 @@ export async function POST(request) {
     const formData = await request.formData();
     const file = formData.get('file');
     const postId = formData.get('postId'); // Optional, for direct post association
+    const fileType = formData.get('fileType'); // 'document' or 'image'
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -15,7 +16,8 @@ export async function POST(request) {
     // Generate unique file name
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
-    const filePath = postId ? `posts/${postId}/${fileName}` : `temp/${fileName}`;
+    const folder = fileType === 'document' ? 'documents' : 'images';
+    const filePath = postId ? `posts/${postId}/${folder}/${fileName}` : `temp/${folder}/${fileName}`;
 
     // Convert File to ArrayBuffer then to Buffer
     const arrayBuffer = await file.arrayBuffer();

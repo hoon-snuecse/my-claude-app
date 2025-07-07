@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { GraduationCap, BarChart2, Network, Plus, Save, X, Loader2, Image as ImageIcon, Upload, FileText } from 'lucide-react';
+import { GraduationCap, BarChart2, Network, Plus, Save, X, Loader2, Image as ImageIcon, Upload, FileText, Paperclip } from 'lucide-react';
 import Link from 'next/link';
 import matter from 'gray-matter';
 
@@ -22,11 +22,13 @@ function WritePageContent() {
     summary: '',
     tags: [],
     images: [],
+    files: [],
     isAIGenerated: false
   });
 
   const [tagInput, setTagInput] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingFile, setUploadingFile] = useState(false);
 
   const [categories, setCategories] = useState([
     { id: 'evaluation', name: '교육평가', icon: GraduationCap, desc: '평가 방법론' },
@@ -49,6 +51,7 @@ function WritePageContent() {
             summary: post.summary || '',
             tags: post.tags || [],
             images: post.images || [],
+            files: post.files || [],
             isAIGenerated: post.is_ai_generated || false
           });
           
@@ -98,6 +101,12 @@ function WritePageContent() {
           name: img.name,
           size: img.size,
           type: img.type
+        })),
+        files: formData.files.map(file => ({
+          path: file.path,
+          name: file.name,
+          size: file.size,
+          type: file.type
         }))
       };
       
@@ -306,6 +315,78 @@ function WritePageContent() {
     } catch (error) {
       console.error('Error parsing markdown file:', error);
       alert('마크다운 파일을 읽는 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleFileUpload = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setUploadingFile(true);
+
+    try {
+      for (const file of files) {
+        // Check file size (20MB limit)
+        if (file.size > 20 * 1024 * 1024) {
+          alert(`${file.name}의 크기가 20MB를 초과합니다. 더 작은 파일을 선택해주세요.`);
+          continue;
+        }
+
+        // Upload to Supabase Storage
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('fileType', 'document');
+
+        const response = await fetch('/api/research/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.details || 'Upload failed');
+        }
+
+        const data = await response.json();
+        console.log('File upload response:', data);
+
+        // Add uploaded file to form data
+        setFormData(prev => ({
+          ...prev,
+          files: [...prev.files, {
+            id: Date.now() + Math.random(),
+            name: data.name,
+            url: data.url,
+            path: data.path,
+            size: data.size,
+            type: data.type
+          }]
+        }));
+      }
+    } catch (error) {
+      console.error('File upload error:', error);
+      alert('파일 업로드 중 오류가 발생했습니다.');
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const removeFile = async (file) => {
+    try {
+      // If file has a path (uploaded to Supabase), delete it
+      if (file.path) {
+        await fetch(`/api/research/upload?path=${encodeURIComponent(file.path)}`, {
+          method: 'DELETE',
+        });
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        files: prev.files.filter(f => f.id !== file.id)
+      }));
+    } catch (error) {
+      console.error('Error removing file:', error);
+      alert('파일 삭제 중 오류가 발생했습니다.');
     }
   };
 
@@ -550,6 +631,60 @@ function WritePageContent() {
                               </button>
                             </div>
                             <p className="text-xs text-slate-500 mt-1 truncate">{image.name}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* File Upload (PDF, etc.) */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
+                    첨부파일 (PDF, DOC 등)
+                  </label>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-center w-full">
+                      <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition-all">
+                        <div className="flex flex-col items-center justify-center pt-3 pb-3">
+                          <Paperclip className="w-8 h-8 mb-2 text-slate-400" />
+                          <p className="text-sm text-slate-500">
+                            <span className="font-semibold">문서 파일 업로드</span>
+                          </p>
+                          <p className="text-xs text-slate-500">PDF, DOC, DOCX (최대 20MB)</p>
+                        </div>
+                        <input
+                          type="file"
+                          className="hidden"
+                          accept=".pdf,.doc,.docx"
+                          multiple
+                          onChange={handleFileUpload}
+                          disabled={uploadingFile}
+                        />
+                      </label>
+                    </div>
+
+                    {/* Uploaded Files */}
+                    {formData.files.length > 0 && (
+                      <div className="space-y-2">
+                        {formData.files.map((file) => (
+                          <div key={file.id} className="flex items-center justify-between bg-slate-50 p-3 rounded-lg">
+                            <div className="flex items-center gap-3">
+                              <Paperclip className="w-5 h-5 text-slate-500" />
+                              <div>
+                                <p className="text-sm font-medium text-slate-700">{file.name}</p>
+                                <p className="text-xs text-slate-500">
+                                  {(file.size / 1024 / 1024).toFixed(2)} MB
+                                </p>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeFile(file)}
+                              className="p-1 text-red-600 hover:bg-red-100 rounded transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
                           </div>
                         ))}
                       </div>

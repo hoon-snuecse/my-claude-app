@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus } from 'lucide-react';
+import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus, FileText, Download } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap = {
@@ -114,8 +114,14 @@ export default function PostPage({ params }) {
         // Continue blockquote
         blockquoteContent.push(line.trim());
       } else {
-        // Handle headings
-        if (line.startsWith('### ')) {
+        // Handle headings - support up to h6
+        if (line.startsWith('###### ')) {
+          htmlLines.push(`<h6 class="text-sm font-medium text-slate-700 mt-3 mb-2">${line.substring(7)}</h6>`);
+        } else if (line.startsWith('##### ')) {
+          htmlLines.push(`<h5 class="text-base font-medium text-slate-700 mt-4 mb-2">${line.substring(6)}</h5>`);
+        } else if (line.startsWith('#### ')) {
+          htmlLines.push(`<h4 class="text-lg font-semibold text-slate-800 mt-5 mb-3">${line.substring(5)}</h4>`);
+        } else if (line.startsWith('### ')) {
           htmlLines.push(`<h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">${line.substring(4)}</h3>`);
         } else if (line.startsWith('## ')) {
           htmlLines.push(`<h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">${line.substring(3)}</h2>`);
@@ -148,6 +154,7 @@ export default function PostPage({ params }) {
       .map(block => {
         // Skip if it's already HTML
         if (block.includes('<h1') || block.includes('<h2') || block.includes('<h3') || 
+            block.includes('<h4') || block.includes('<h5') || block.includes('<h6') ||
             block.includes('<blockquote') || block.includes('<img') || block.includes('<div')) {
           return block;
         }
@@ -259,6 +266,37 @@ export default function PostPage({ params }) {
                 className="prose prose-lg prose-slate max-w-none [&>p]:text-lg [&>p]:leading-relaxed [&>p]:text-slate-700"
                 dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
               />
+              
+              {/* Attached Files */}
+              {post.files && post.files.length > 0 && (
+                <div className="mt-8 pt-8 border-t border-slate-200">
+                  <h3 className="text-lg font-semibold text-slate-800 mb-4">첨부파일</h3>
+                  <div className="space-y-2">
+                    {post.files.map((file) => (
+                      <a
+                        key={file.id}
+                        href={file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between bg-slate-50 hover:bg-slate-100 p-3 rounded-lg transition-colors group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <FileText className="w-5 h-5 text-slate-500" />
+                          <div>
+                            <p className="text-sm font-medium text-slate-700 group-hover:text-blue-600 transition-colors">
+                              {file.name}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              {file.size && `${(file.size / 1024 / 1024).toFixed(2)} MB`}
+                            </p>
+                          </div>
+                        </div>
+                        <Download className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
               
               {/* Tags */}
               {post.tags && post.tags.length > 0 ? (

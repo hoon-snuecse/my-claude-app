@@ -5,7 +5,7 @@ export async function GET(request) {
   try {
     const supabase = await createClient();
     
-    // Fetch posts with their images
+    // Fetch posts with their images and files
     const { data: posts, error } = await supabase
       .from('research_posts')
       .select(`
@@ -14,6 +14,15 @@ export async function GET(request) {
           id,
           file_path,
           file_name,
+          display_order
+        ),
+        research_post_files (
+          id,
+          file_path,
+          file_name,
+          file_type,
+          file_size,
+          mime_type,
           display_order
         )
       `)
@@ -43,6 +52,13 @@ export async function GET(request) {
         id: img.id,
         name: img.file_name,
         url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/research-images/${img.file_path}`
+      })) : [],
+      files: post.research_post_files ? post.research_post_files.map(file => ({
+        id: file.id,
+        name: file.file_name,
+        url: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/research-images/${file.file_path}`,
+        type: file.mime_type,
+        size: file.file_size
       })) : []
     }));
 
@@ -58,8 +74,8 @@ export async function POST(request) {
     const supabase = await createClient();
     const data = await request.json();
     
-    // Extract images from the data
-    const { images, ...postData } = data;
+    // Extract images and files from the data
+    const { images, files, ...postData } = data;
     
     // Insert the post
     const { data: newPost, error: postError } = await supabase
@@ -109,6 +125,31 @@ export async function POST(request) {
       }
     }
 
+    // If there are files, save their metadata
+    if (files && files.length > 0) {
+      const fileRecords = files
+        .filter(file => file.path)
+        .map((file, index) => ({
+          post_id: newPost.id,
+          file_path: file.path,
+          file_name: file.name || 'untitled',
+          file_size: file.size || 0,
+          mime_type: file.type || 'application/octet-stream',
+          file_type: 'document',
+          display_order: index
+        }));
+
+      if (fileRecords.length > 0) {
+        const { error: fileError } = await supabase
+          .from('research_post_files')
+          .insert(fileRecords);
+
+        if (fileError) {
+          console.error('Error saving file metadata:', fileError);
+        }
+      }
+    }
+
     return NextResponse.json({ 
       success: true, 
       id: newPost.id,
@@ -127,7 +168,7 @@ export async function PUT(request) {
   try {
     const supabase = await createClient();
     const data = await request.json();
-    const { id, images, ...updateData } = data;
+    const { id, images, files, ...updateData } = data;
     
     if (!id) {
       return NextResponse.json({ error: 'Post ID required' }, { status: 400 });
@@ -198,6 +239,38 @@ export async function PUT(request) {
       }
     }
 
+    // Handle file updates
+    if (files !== undefined) {
+      // Delete existing file records
+      await supabase
+        .from('research_post_files')
+        .delete()
+        .eq('post_id', id);
+
+      // Insert new file records
+      if (files && files.length > 0) {
+        const fileRecords = files
+          .filter(file => file.path)
+          .map((file, index) => ({
+            post_id: id,
+            file_path: file.path,
+            file_name: file.name || 'untitled',
+            file_size: file.size || 0,
+            mime_type: file.type || 'application/octet-stream',
+            file_type: 'document',
+            display_order: index
+          }));
+
+        const { error: fileError } = await supabase
+          .from('research_post_files')
+          .insert(fileRecords);
+
+        if (fileError) {
+          console.error('Error updating file metadata:', fileError);
+        }
+      }
+    }
+
     return NextResponse.json({ 
       success: true, 
       post: updatedPost 
@@ -221,9 +294,14 @@ export async function DELETE(request) {
       return NextResponse.json({ error: 'Post ID required' }, { status: 400 });
     }
 
-    // First, get the images associated with this post
+    // First, get the images and files associated with this post
     const { data: images } = await supabase
       .from('research_post_images')
+      .select('file_path')
+      .eq('post_id', id);
+
+    const { data: files } = await supabase
+      .from('research_post_files')
       .select('file_path')
       .eq('post_id', id);
 
@@ -236,6 +314,18 @@ export async function DELETE(request) {
 
       if (storageError) {
         console.error('Error deleting images from storage:', storageError);
+      }
+    }
+
+    // Delete files from storage
+    if (files && files.length > 0) {
+      const filePaths = files.map(file => file.file_path);
+      const { error: storageError } = await supabase.storage
+        .from('research-images')
+        .remove(filePaths);
+
+      if (storageError) {
+        console.error('Error deleting files from storage:', storageError);
       }
     }
 

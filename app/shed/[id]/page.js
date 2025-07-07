@@ -116,8 +116,14 @@ export default function PostPage({ params }) {
         // Continue blockquote
         blockquoteContent.push(line.trim());
       } else {
-        // Handle headings
-        if (line.startsWith('### ')) {
+        // Handle headings - support up to h6
+        if (line.startsWith('###### ')) {
+          htmlLines.push(`<h6 class="text-sm font-medium text-slate-700 mt-3 mb-2">${line.substring(7)}</h6>`);
+        } else if (line.startsWith('##### ')) {
+          htmlLines.push(`<h5 class="text-base font-medium text-slate-700 mt-4 mb-2">${line.substring(6)}</h5>`);
+        } else if (line.startsWith('#### ')) {
+          htmlLines.push(`<h4 class="text-lg font-semibold text-slate-800 mt-5 mb-3">${line.substring(5)}</h4>`);
+        } else if (line.startsWith('### ')) {
           htmlLines.push(`<h3 class="text-xl font-semibold text-slate-800 mt-6 mb-3">${line.substring(4)}</h3>`);
         } else if (line.startsWith('## ')) {
           htmlLines.push(`<h2 class="text-2xl font-bold text-slate-800 mt-8 mb-4">${line.substring(3)}</h2>`);
@@ -150,6 +156,7 @@ export default function PostPage({ params }) {
       .map(block => {
         // Skip if it's already HTML
         if (block.includes('<h1') || block.includes('<h2') || block.includes('<h3') || 
+            block.includes('<h4') || block.includes('<h5') || block.includes('<h6') ||
             block.includes('<blockquote') || block.includes('<img') || block.includes('<div')) {
           return block;
         }
