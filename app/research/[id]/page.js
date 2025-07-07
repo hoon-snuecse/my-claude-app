@@ -329,26 +329,15 @@ export default function PostPage({ params }) {
           </div>
         </article>
 
-        {/* Navigation to other posts */}
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          <Link href="/research" className="quote-sheet hover:shadow-lg transition-all group">
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              <div className="relative z-10 text-center">
-                <ChevronLeft className="w-6 h-6 text-blue-600 mb-2 mx-auto group-hover:-translate-x-1 transition-transform" />
-                <p className="text-slate-600">다른 연구 둘러보기</p>
-              </div>
-            </div>
+        {/* Simple navigation links */}
+        <div className="mt-12 pt-6 border-t border-slate-200 flex justify-center gap-6 text-sm">
+          <Link href="/research" className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+            <span>목록으로</span>
           </Link>
-          
-          <Link href="/research/write" className="quote-sheet hover:shadow-lg transition-all group">
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              <div className="relative z-10 text-center">
-                <Edit className="w-6 h-6 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                <p className="text-slate-600">새 연구 작성하기</p>
-              </div>
-            </div>
+          <Link href="/research/write" className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
+            <Edit className="w-4 h-4" />
+            <span>새 글 작성</span>
           </Link>
         </div>
       </div>
