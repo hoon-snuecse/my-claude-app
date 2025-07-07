@@ -180,7 +180,7 @@ export default function PostPage({ params }) {
   };
 
   return (
-    <div className={`min-h-screen py-16 px-4 transition-all duration-1000 ${
+    <div className={`py-8 px-4 transition-all duration-1000 ${
       fadeIn ? 'opacity-100' : 'opacity-0'
     }`}>
       <div className="container-custom max-w-4xl">
