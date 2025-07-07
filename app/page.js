@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Home, FlaskConical, Microscope, BookOpen, BarChart3, Hammer } from 'lucide-react';
 
 export default function HomePage() {
   const [fadeIn, setFadeIn] = useState({
@@ -10,7 +8,6 @@ export default function HomePage() {
     quote1: false,
     quote2: false,
     quote3: false,
-    menu: false,
   });
 
   const quotes = [
@@ -41,7 +38,6 @@ export default function HomePage() {
       setTimeout(() => setFadeIn(prev => ({ ...prev, quote1: true })), 500),
       setTimeout(() => setFadeIn(prev => ({ ...prev, quote2: true })), 700),
       setTimeout(() => setFadeIn(prev => ({ ...prev, quote3: true })), 900),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, menu: true })), 1100),
     ];
 
     return () => timers.forEach(timer => clearTimeout(timer));
@@ -108,73 +104,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Navigation Menu Section */}
-      <section className={`py-16 px-4 transition-all duration-1000 ${
-        fadeIn.menu ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-      }`}>
-        <div className="container-custom">
-          <h2 className="text-2xl font-space-grotesk font-bold text-center mb-8 text-slate-800">
-            탐색하기
-          </h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-            <Link href="/activities" className="quote-sheet hover:shadow-lg transition-all group">
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                <div className="relative z-10 text-center">
-                  <FlaskConical className="w-8 h-8 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-slate-800">활동</h3>
-                  <p className="text-sm text-slate-500 mt-1">학술 활동</p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/research" className="quote-sheet hover:shadow-lg transition-all group">
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                <div className="relative z-10 text-center">
-                  <Microscope className="w-8 h-8 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-slate-800">연구</h3>
-                  <p className="text-sm text-slate-500 mt-1">연구 기록</p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/teaching" className="quote-sheet hover:shadow-lg transition-all group">
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                <div className="relative z-10 text-center">
-                  <BookOpen className="w-8 h-8 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-slate-800">교육</h3>
-                  <p className="text-sm text-slate-500 mt-1">강의 자료</p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/analytics" className="quote-sheet hover:shadow-lg transition-all group">
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                <div className="relative z-10 text-center">
-                  <BarChart3 className="w-8 h-8 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-slate-800">분석</h3>
-                  <p className="text-sm text-slate-500 mt-1">데이터 시각화</p>
-                </div>
-              </div>
-            </Link>
-            
-            <Link href="/shed" className="quote-sheet hover:shadow-lg transition-all group">
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                <div className="relative z-10 text-center">
-                  <Hammer className="w-8 h-8 text-blue-600 mb-2 mx-auto group-hover:scale-110 transition-transform" />
-                  <h3 className="font-semibold text-slate-800">일상</h3>
-                  <p className="text-sm text-slate-500 mt-1">일상 기록</p>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
 
     </div>
   );

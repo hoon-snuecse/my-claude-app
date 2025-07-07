@@ -24,6 +24,9 @@ export default function Footer() {
             <Link href="/" className="text-gray-300 hover:text-white transition-colors">
               홈
             </Link>
+            <Link href="/activities" className="text-gray-300 hover:text-white transition-colors">
+              활동
+            </Link>
             <Link href="/research" className="text-gray-300 hover:text-white transition-colors">
               연구
             </Link>

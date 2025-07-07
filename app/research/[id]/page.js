@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Calendar, Clock, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus, FileText, Download, Music, Video } from 'lucide-react';
+import { ChevronLeft, Calendar, Tag, Edit, Trash2, GraduationCap, BarChart2, Network, Plus, FileText, Download, Music, Video } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap = {
@@ -242,10 +242,6 @@ export default function PostPage({ params }) {
                               timeZone: 'Asia/Seoul'
                             })
                           ) : '날짜 없음'}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {post.readingTime}
                       </span>
                     </span>
                   </div>
