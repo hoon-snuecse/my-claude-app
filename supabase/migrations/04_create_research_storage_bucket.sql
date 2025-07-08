@@ -39,6 +39,7 @@ BEGIN
         'application/pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/html',
         'audio/wav',
         'audio/x-wav',
         'audio/mpeg',

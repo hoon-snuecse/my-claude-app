@@ -180,20 +180,20 @@ export default function PostPage({ params }) {
           )}
 
           {/* Admin Controls */}
-          <div className="flex gap-3 mb-8">
+          <div className="flex items-center gap-2">
             <Link
               href={`/analytics/write?edit=${post.id}`}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="p-2 text-slate-600 hover:text-blue-600 transition-colors"
+              title="수정"
             >
-              <Edit className="w-4 h-4" />
-              수정
+              <Edit className="w-5 h-5" />
             </Link>
             <button
               onClick={handleDelete}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="p-2 text-slate-600 hover:text-red-600 transition-colors"
+              title="삭제"
             >
-              <Trash2 className="w-4 h-4" />
-              삭제
+              <Trash2 className="w-5 h-5" />
             </button>
           </div>
         </header>

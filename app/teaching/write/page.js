@@ -385,7 +385,7 @@ function WritePageContent() {
           if (error.message?.includes('row too large')) {
             throw new Error(`파일 크기가 너무 큽니다. 50MB 이하의 파일을 선택해주세요.`);
           } else if (error.message?.includes('Invalid MIME type') || error.message?.includes('mime')) {
-            throw new Error(`지원하지 않는 파일 형식입니다. (${file.type || '알 수 없음'})\n현재 지원: PDF, DOC, WAV, MP3, MP4`);
+            throw new Error(`지원하지 않는 파일 형식입니다. (${file.type || '알 수 없음'})\n현재 지원: PDF, DOC, HTML, WAV, MP3, MP4`);
           } else if (error.message?.includes('bucket') || error.message?.includes('not found')) {
             throw new Error('Storage가 올바르게 설정되지 않았습니다. Supabase 대시보드에서 teaching-images 버킷을 확인해주세요.');
           } else {
@@ -663,11 +663,11 @@ function WritePageContent() {
           <label className="flex items-center gap-3 px-4 py-3 border-2 border-dashed border-slate-300 rounded-lg hover:border-blue-400 cursor-pointer transition-colors">
             <Paperclip className="w-5 h-5 text-slate-500" />
             <span className="text-slate-600">
-              {uploadingFile ? '업로드 중...' : 'PDF, DOC, MP3, MP4 등 파일 선택 (최대 50MB)'}
+              {uploadingFile ? '업로드 중...' : 'PDF, DOC, HTML, MP3, MP4 등 파일 선택 (최대 50MB)'}
             </span>
             <input
               type="file"
-              accept=".pdf,.doc,.docx,.wav,.mp3,.mp4"
+              accept=".pdf,.doc,.docx,.wav,.mp3,.mp4,.html"
               multiple
               onChange={handleFileUpload}
               disabled={uploadingFile}
