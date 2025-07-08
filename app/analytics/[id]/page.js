@@ -226,7 +226,10 @@ export default function PostPage({ params }) {
                       </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => window.open(file.url, '_blank', 'noopener,noreferrer')}
+                          onClick={() => {
+                            const previewUrl = `/api/preview/html?url=${encodeURIComponent(file.url)}`;
+                            window.open(previewUrl, '_blank', 'noopener,noreferrer');
+                          }}
                           className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center gap-1"
                         >
                           <Eye className="w-3 h-3" />
