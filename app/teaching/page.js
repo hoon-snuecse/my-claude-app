@@ -1,28 +1,60 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { BookOpen, Users, Lightbulb, Plus, PenTool, ChevronRight, Tag } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TeachingPage() {
   const [fadeIn, setFadeIn] = useState({
     hero: false,
-    philosophy: false,
-    activity1: false,
-    activity2: false,
-    activity3: false,
+    content: false,
+    items: false,
   });
 
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const categories = [
+    { id: 'citizenship', name: '시민성교육', icon: Users, desc: '시민성 교육' },
+    { id: 'evaluation', name: '교육평가', icon: BookOpen, desc: '평가 방법론' },
+    { id: 'future', name: '미래교육', icon: Lightbulb, desc: '미래 교육' },
+    { id: 'others', name: '기타', icon: Plus, desc: '기타 교육' },
+  ];
+
   useEffect(() => {
-    // Stagger the fade-in animations
     const timers = [
       setTimeout(() => setFadeIn(prev => ({ ...prev, hero: true })), 100),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, philosophy: true })), 500),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, activity1: true })), 700),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, activity2: true })), 900),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, activity3: true })), 1100),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, content: true })), 500),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, items: true })), 700),
     ];
+
+    // 포스트 데이터 로드
+    fetchPosts();
 
     return () => timers.forEach(timer => clearTimeout(timer));
   }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch('/api/teaching/posts/supabase');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Fetched teaching posts data:', data);
+        setPosts(data.posts || []);
+      } else {
+        console.error('API response not ok:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Failed to fetch teaching posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredPosts = selectedCategory === 'all' 
+    ? posts 
+    : posts.filter(post => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen">
@@ -46,123 +78,136 @@ export default function TeachingPage() {
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section className="py-16 px-4">
-        <div className="container-custom">
-          <div className={`quote-sheet max-w-4xl mx-auto mb-16 transition-all duration-1000 ${
-            fadeIn.philosophy ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h2 className="text-3xl font-space-grotesk font-semibold text-slate-800 mb-6">
-                  교육 철학
-                </h2>
-                
-                <p className="text-lg text-slate-700 italic mb-6">
-                  "교육은 지식의 전달이 아닌, 사고의 도구를 제공하는 것이다."
-                </p>
-                
-                <p className="text-base text-slate-600 leading-relaxed mb-4">
-                  20년 이상의 교육 경험을 통해 깨달은 것은, 진정한 교육은 답을 주는 것이 아니라 
-                  올바른 질문을 할 수 있는 능력을 기르는 것입니다. 
-                </p>
-                
-                <p className="text-base text-slate-600 leading-relaxed">
-                  데이터와 증거에 기반한 교육 방법론을 연구하며, 
-                  AI 시대에 필요한 비판적 사고력과 창의성을 기르는 교육을 추구합니다.
-                </p>
-              </div>
+      {/* Category Navigation */}
+      <section className={`py-8 px-4 transition-all duration-1000 ${
+        fadeIn.content ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <div className="container-custom max-w-6xl">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                }`}
+              >
+                전체
+              </button>
+              {categories.map((category) => {
+                const Icon = category.icon;
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                      selectedCategory === category.id
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {category.name}
+                  </button>
+                );
+              })}
             </div>
+            
+            <Link
+              href="/teaching/write"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
+            >
+              <PenTool className="w-4 h-4" />
+              글쓰기
+            </Link>
           </div>
 
-          {/* Activities */}
-          <div className="space-y-8">
-            <div className={`quote-sheet transition-all duration-1000 ${
-              fadeIn.activity1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+          {/* Posts Grid */}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+          ) : filteredPosts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPosts.map((post) => {
+                const category = categories.find(c => c.id === post.category);
+                const Icon = category?.icon || BookOpen;
+                
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/teaching/${post.id}`}
+                    className="quote-sheet hover:shadow-lg transition-all group"
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-200 rounded-lg flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <span className="text-sm text-slate-500">
+                            {post.createdAt ? 
+                              new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                                year: 'numeric',
+                                month: 'numeric',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                timeZone: 'Asia/Seoul'
+                              }) : '날짜 없음'}
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                          {post.title}
+                        </h3>
+                        
+                        <p className="text-base text-slate-600 mb-4 line-clamp-3">
+                          {post.summary}
+                        </p>
+                        
+                        <div className="flex items-center justify-between text-sm text-slate-500">
+                          <div className="flex items-center gap-4">
+                            {post.tags && post.tags.length > 0 && (
+                              <span className="flex items-center gap-1">
+                                <Tag className="w-3 h-3" />
+                                {post.tags[0]}
+                              </span>
+                            )}
+                          </div>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="quote-sheet max-w-2xl mx-auto text-center">
               <div className="relative">
                 <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
                 
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                    대학 강의
-                  </h3>
-                  
-                  <p className="text-lg text-blue-600 mb-4 italic">
-                    University Lectures
+                <div className="relative z-10 py-12">
+                  <p className="text-lg text-slate-600 mb-4">
+                    {selectedCategory === 'all' 
+                      ? '아직 작성된 교육 포스트가 없습니다.'
+                      : `${categories.find(c => c.id === selectedCategory)?.name} 카테고리에 포스트가 없습니다.`}
                   </p>
-                  
-                  <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                    서울교육대학교를 비롯한 여러 대학에서 교육연구방법론, 교육평가론 등을 강의하며, 
-                    예비 교사들과 현직 교사들에게 데이터 기반 교육의 중요성을 전파하고 있습니다.
-                  </p>
-                  
-                  <div className="flex items-center gap-2 text-slate-500 text-sm">
-                    <span className="w-5 h-px bg-slate-300"></span>
-                    <span>2004-현재 | 11개 강좌 | 5개 대학</span>
-                  </div>
+                  <Link
+                    href="/teaching/write"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <PenTool className="w-4 h-4" />
+                    첫 포스트를 작성해보세요
+                  </Link>
                 </div>
               </div>
             </div>
-
-            <div className={`quote-sheet transition-all duration-1000 ${
-              fadeIn.activity2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                    교사 연수
-                  </h3>
-                  
-                  <p className="text-lg text-blue-600 mb-4 italic">
-                    Teacher Training
-                  </p>
-                  
-                  <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                    현직 교사들을 위한 평가 방법론과 교원학습공동체 운영 연수를 진행하며, 
-                    교실 현장에서 바로 적용할 수 있는 실질적인 교육 방법을 공유합니다.
-                  </p>
-                  
-                  <div className="flex items-center gap-2 text-slate-500 text-sm">
-                    <span className="w-5 h-px bg-slate-300"></span>
-                    <span>2016-2022 | 7개 프로그램 | 100+ 교사</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={`quote-sheet transition-all duration-1000 ${
-              fadeIn.activity3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <div className="relative">
-                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                    교육 컨설팅
-                  </h3>
-                  
-                  <p className="text-lg text-blue-600 mb-4 italic">
-                    Educational Consulting
-                  </p>
-                  
-                  <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                    학교 현장의 교육과정 개선과 평가 시스템 구축을 위한 전문 컨설팅을 제공하며, 
-                    각 학교의 특성에 맞는 맞춤형 교육 솔루션을 설계합니다.
-                  </p>
-                  
-                  <div className="flex items-center gap-2 text-slate-500 text-sm">
-                    <span className="w-5 h-px bg-slate-300"></span>
-                    <span>2019-2023 | 8개 학교 | 3개 교육청</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>

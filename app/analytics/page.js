@@ -1,35 +1,59 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { BarChart2, Network, Database, Plus, PenTool, ChevronRight, Tag } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AnalyticsPage() {
   const [fadeIn, setFadeIn] = useState({
     hero: false,
-    project1: false,
-    project2: false,
-    project3: false,
-    tools: false,
+    content: false,
+    items: false,
   });
 
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const categories = [
+    { id: 'pisa', name: 'PISA 데이터 분석', icon: BarChart2, desc: 'PISA 분석' },
+    { id: 'sna', name: '소셜네트워크 데이터분석', icon: Network, desc: 'SNA 분석' },
+    { id: 'others', name: '기타', icon: Plus, desc: '기타 분석' },
+  ];
+
   useEffect(() => {
-    // Stagger the fade-in animations
     const timers = [
       setTimeout(() => setFadeIn(prev => ({ ...prev, hero: true })), 100),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, project1: true })), 500),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, project2: true })), 700),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, project3: true })), 900),
-      setTimeout(() => setFadeIn(prev => ({ ...prev, tools: true })), 1100),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, content: true })), 500),
+      setTimeout(() => setFadeIn(prev => ({ ...prev, items: true })), 700),
     ];
+
+    // 포스트 데이터 로드
+    fetchPosts();
 
     return () => timers.forEach(timer => clearTimeout(timer));
   }, []);
 
-  const tools = [
-    { name: 'Python', desc: '데이터 처리 & ML', icon: '🐍' },
-    { name: 'R', desc: '통계 분석', icon: '📊' },
-    { name: 'Tableau', desc: '시각화', icon: '📈' },
-    { name: 'Claude AI', desc: '인사이트 도출', icon: '🤖' },
-  ];
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch('/api/analytics/posts/supabase');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Fetched analytics posts data:', data);
+        setPosts(data.posts || []);
+      } else {
+        console.error('API response not ok:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Failed to fetch analytics posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredPosts = selectedCategory === 'all' 
+    ? posts 
+    : posts.filter(post => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen">
@@ -53,117 +77,136 @@ export default function AnalyticsPage() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="py-16 px-4">
-        <div className="container-custom space-y-8">
-          <div className={`quote-sheet transition-all duration-1000 ${
-            fadeIn.project1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                  PISA 데이터 분석
-                </h3>
-                
-                <p className="text-lg text-blue-600 mb-4 italic">
-                  International Education Performance Analysis
-                </p>
-                
-                <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                  OECD PISA 데이터를 활용한 국가별 교육 성취도 비교 분석과 교육 격차 요인 규명. 
-                  다층모형과 머신러닝 기법을 활용하여 한국 교육의 강점과 개선점을 도출했습니다.
-                </p>
-                
-                <div className="flex items-center gap-2 text-slate-500 text-sm">
-                  <span className="w-5 h-px bg-slate-300"></span>
-                  <span>Python | R | Tableau</span>
-                </div>
-              </div>
+      {/* Category Navigation */}
+      <section className={`py-8 px-4 transition-all duration-1000 ${
+        fadeIn.content ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <div className="container-custom max-w-6xl">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                }`}
+              >
+                전체
+              </button>
+              {categories.map((category) => {
+                const Icon = category.icon;
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                      selectedCategory === category.id
+                        ? 'bg-blue-600 text-white shadow-lg'
+                        : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {category.name}
+                  </button>
+                );
+              })}
             </div>
+            
+            <Link
+              href="/analytics/write"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
+            >
+              <PenTool className="w-4 h-4" />
+              글쓰기
+            </Link>
           </div>
 
-          <div className={`quote-sheet transition-all duration-1000 ${
-            fadeIn.project2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                  사회 네트워크 분석
-                </h3>
-                
-                <p className="text-lg text-blue-600 mb-4 italic">
-                  Educational Community Network Analysis
-                </p>
-                
-                <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                  교육 커뮤니티의 상호작용 패턴을 네트워크 분석을 통해 시각화하고 인사이트 도출. 
-                  교원학습공동체의 지식 공유 네트워크를 분석하여 효과적인 협업 모델을 제시했습니다.
-                </p>
-                
-                <div className="flex items-center gap-2 text-slate-500 text-sm">
-                  <span className="w-5 h-px bg-slate-300"></span>
-                  <span>NetworkX | Gephi | D3.js</span>
-                </div>
-              </div>
+          {/* Posts Grid */}
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
             </div>
-          </div>
-
-          <div className={`quote-sheet transition-all duration-1000 ${
-            fadeIn.project3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h3 className="text-2xl font-space-grotesk font-bold text-slate-800 mb-2">
-                  실시간 대시보드
-                </h3>
+          ) : filteredPosts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPosts.map((post) => {
+                const category = categories.find(c => c.id === post.category);
+                const Icon = category?.icon || Database;
                 
-                <p className="text-lg text-blue-600 mb-4 italic">
-                  Real-time Educational Dashboard
-                </p>
-                
-                <p className="text-base text-slate-600 mb-6 leading-relaxed">
-                  교육 데이터의 실시간 모니터링과 인터랙티브 시각화를 위한 대시보드 개발. 
-                  학습 성과와 교육 활동을 실시간으로 추적하고 즉각적인 피드백을 제공합니다.
-                </p>
-                
-                <div className="flex items-center gap-2 text-slate-500 text-sm">
-                  <span className="w-5 h-px bg-slate-300"></span>
-                  <span>Plotly | Dash | Power BI</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Tools Section */}
-          <div className={`quote-sheet max-w-4xl mx-auto mt-16 transition-all duration-1000 ${
-            fadeIn.tools ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <div className="relative">
-              <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
-              
-              <div className="relative z-10">
-                <h2 className="text-2xl font-space-grotesk font-semibold text-slate-800 mb-8 text-center">
-                  주요 분석 도구
-                </h2>
-                
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                  {tools.map((tool, index) => (
-                    <div key={index}>
-                      <div className="text-3xl mb-2">{tool.icon}</div>
-                      <h4 className="font-semibold text-slate-800">{tool.name}</h4>
-                      <p className="text-xs text-slate-600">{tool.desc}</p>
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/analytics/${post.id}`}
+                    className="quote-sheet hover:shadow-lg transition-all group"
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm border border-blue-200 rounded-lg flex items-center justify-center">
+                            <Icon className="w-5 h-5 text-blue-600" />
+                          </div>
+                          <span className="text-sm text-slate-500">
+                            {post.createdAt ? 
+                              new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                                year: 'numeric',
+                                month: 'numeric',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                timeZone: 'Asia/Seoul'
+                              }) : '날짜 없음'}
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-lg font-semibold text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">
+                          {post.title}
+                        </h3>
+                        
+                        <p className="text-base text-slate-600 mb-4 line-clamp-3">
+                          {post.summary}
+                        </p>
+                        
+                        <div className="flex items-center justify-between text-sm text-slate-500">
+                          <div className="flex items-center gap-4">
+                            {post.tags && post.tags.length > 0 && (
+                              <span className="flex items-center gap-1">
+                                <Tag className="w-3 h-3" />
+                                {post.tags[0]}
+                              </span>
+                            )}
+                          </div>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
                     </div>
-                  ))}
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="quote-sheet max-w-2xl mx-auto text-center">
+              <div className="relative">
+                <div className="absolute inset-4 border border-dashed border-blue-200 rounded-lg opacity-30"></div>
+                
+                <div className="relative z-10 py-12">
+                  <p className="text-lg text-slate-600 mb-4">
+                    {selectedCategory === 'all' 
+                      ? '아직 작성된 분석 포스트가 없습니다.'
+                      : `${categories.find(c => c.id === selectedCategory)?.name} 카테고리에 포스트가 없습니다.`}
+                  </p>
+                  <Link
+                    href="/analytics/write"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    <PenTool className="w-4 h-4" />
+                    첫 포스트를 작성해보세요
+                  </Link>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     </div>
