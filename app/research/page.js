@@ -208,13 +208,15 @@ export default function ResearchPage() {
                       ? '아직 작성된 연구가 없습니다.'
                       : `${categories.find(c => c.id === selectedCategory)?.name} 카테고리에 연구가 없습니다.`}
                   </p>
-                  <Link
-                    href="/research/write"
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
-                  >
-                    <PenTool className="w-4 h-4" />
-                    첫 연구를 작성해보세요
-                  </Link>
+                  {session?.user?.isAdmin && (
+                    <Link
+                      href="/research/write"
+                      className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 transition-colors"
+                    >
+                      <PenTool className="w-4 h-4" />
+                      첫 연구를 작성해보세요
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

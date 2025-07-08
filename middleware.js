@@ -4,7 +4,14 @@ import { NextResponse } from 'next/server';
 export default withAuth(
   function middleware(req) {
     // 관리자만 접근 가능한 경로
-    const adminPaths = ['/ai/chat', '/admin'];
+    const adminPaths = [
+      '/ai/chat', 
+      '/admin',
+      '/research/write',
+      '/teaching/write', 
+      '/analytics/write',
+      '/shed/write'
+    ];
     const isAdminPath = adminPaths.some(path => req.nextUrl.pathname.startsWith(path));
     
     // 관리자 경로이고 관리자가 아닌 경우
@@ -23,5 +30,12 @@ export default withAuth(
 
 // 보호된 경로 설정
 export const config = {
-  matcher: ['/ai/chat/:path*', '/admin/:path*'],
+  matcher: [
+    '/ai/chat/:path*', 
+    '/admin/:path*',
+    '/research/write/:path*',
+    '/teaching/write/:path*',
+    '/analytics/write/:path*',
+    '/shed/write/:path*'
+  ],
 };
