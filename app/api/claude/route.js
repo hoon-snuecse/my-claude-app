@@ -1,4 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -6,6 +8,15 @@ const anthropic = new Anthropic({
 
 export async function POST(request) {
   try {
+    // Check authentication
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return Response.json({ 
+        error: '로그인이 필요합니다.',
+        errorType: 'authentication' 
+      }, { status: 401 });
+    }
+
     const { message, context } = await request.json();
 
     // API 키 확인

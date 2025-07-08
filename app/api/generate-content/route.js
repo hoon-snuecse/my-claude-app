@@ -1,7 +1,18 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(request) {
   try {
+    // Check authentication
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    if (!session.user.isAdmin) {
+      return Response.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
+    }
+
     // API 키 검증
     const apiKey = process.env.ANTHROPIC_API_KEY;
     

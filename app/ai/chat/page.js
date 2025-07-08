@@ -38,7 +38,13 @@ export default function ChatPage() {
         setChatHistory(prev => [...prev, assistantMessage]);
         setResponse('');
       } else {
-        setResponse(`오류: ${data.error}`);
+        if (res.status === 401) {
+          setResponse('로그인이 필요합니다. 로그인 후 다시 시도해주세요.');
+          // 선택적: 로그인 페이지로 리다이렉트
+          // window.location.href = '/auth/signin';
+        } else {
+          setResponse(`오류: ${data.error}`);
+        }
       }
     } catch (error) {
       setResponse('네트워크 오류가 발생했습니다.');
