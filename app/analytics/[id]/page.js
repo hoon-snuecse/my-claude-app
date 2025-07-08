@@ -4,6 +4,7 @@ import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Calendar, Tag, Edit, Trash2, BarChart2, Network, Plus, FileText, Download, Music, Video, Eye } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const iconMap = {
   pisa: BarChart2,
@@ -14,6 +15,7 @@ const iconMap = {
 export default function PostPage({ params }) {
   const { id } = use(params);
   const router = useRouter();
+  const { data: session } = useSession();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fadeIn, setFadeIn] = useState(false);
@@ -180,22 +182,24 @@ export default function PostPage({ params }) {
           )}
 
           {/* Admin Controls */}
-          <div className="flex items-center gap-2">
-            <Link
-              href={`/analytics/write?edit=${post.id}`}
-              className="p-2 text-slate-600 hover:text-blue-600 transition-colors"
-              title="수정"
-            >
-              <Edit className="w-5 h-5" />
-            </Link>
-            <button
-              onClick={handleDelete}
-              className="p-2 text-slate-600 hover:text-red-600 transition-colors"
-              title="삭제"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
-          </div>
+          {session?.user?.isAdmin && (
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/analytics/write?edit=${post.id}`}
+                className="p-2 text-slate-600 hover:text-blue-600 transition-colors"
+                title="수정"
+              >
+                <Edit className="w-5 h-5" />
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="p-2 text-slate-600 hover:text-red-600 transition-colors"
+                title="삭제"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </header>
 
         {/* Content */}

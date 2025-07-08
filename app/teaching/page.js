@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 import { BookOpen, Users, Lightbulb, Plus, PenTool, ChevronRight, Tag } from 'lucide-react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function TeachingPage() {
+  const { data: session } = useSession();
   const [fadeIn, setFadeIn] = useState({
     hero: false,
     content: false,
@@ -114,13 +116,15 @@ export default function TeachingPage() {
               })}
             </div>
             
-            <Link
-              href="/teaching/write"
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
-            >
-              <PenTool className="w-4 h-4" />
-              글쓰기
-            </Link>
+            {session?.user?.isAdmin && (
+              <Link
+                href="/teaching/write"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all"
+              >
+                <PenTool className="w-4 h-4" />
+                글쓰기
+              </Link>
+            )}
           </div>
 
           {/* Posts Grid */}
