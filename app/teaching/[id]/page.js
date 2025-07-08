@@ -2,7 +2,7 @@
 
 import { use, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Calendar, Tag, Edit, Trash2, BookOpen, Users, Lightbulb, Plus, FileText, Download, Music, Video } from 'lucide-react';
+import { ChevronLeft, Calendar, Tag, Edit, Trash2, BookOpen, Users, Lightbulb, Plus, FileText, Download, Music, Video, Eye } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap = {
@@ -212,23 +212,57 @@ export default function PostPage({ params }) {
             <div className="space-y-2">
               {post.files.map((file) => {
                 const FileIcon = getFileIcon(file.type);
-                return (
-                  <a
-                    key={file.id}
-                    href={file.url}
-                    download={file.name}
-                    className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
-                  >
-                    <FileIcon className="w-5 h-5 text-slate-500" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium text-slate-700">{file.name}</p>
-                      <p className="text-xs text-slate-500">
-                        {file.size ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : 'Size unknown'}
-                      </p>
+                const isHtml = file.type === 'text/html' || file.name.endsWith('.html');
+                
+                if (isHtml) {
+                  return (
+                    <div
+                      key={file.id}
+                      className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg"
+                    >
+                      <FileIcon className="w-5 h-5 text-slate-500" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-slate-700">{file.name}</p>
+                        <p className="text-xs text-slate-500">HTML 문서</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => window.open(file.url, '_blank', 'noopener,noreferrer')}
+                          className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center gap-1"
+                        >
+                          <Eye className="w-3 h-3" />
+                          미리보기
+                        </button>
+                        <a
+                          href={file.url}
+                          download={file.name}
+                          className="px-3 py-1 text-sm bg-slate-600 text-white rounded hover:bg-slate-700 transition-colors flex items-center gap-1"
+                        >
+                          <Download className="w-3 h-3" />
+                          다운로드
+                        </a>
+                      </div>
                     </div>
-                    <Download className="w-4 h-4 text-slate-400" />
-                  </a>
-                );
+                  );
+                } else {
+                  return (
+                    <a
+                      key={file.id}
+                      href={file.url}
+                      download={file.name}
+                      className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                    >
+                      <FileIcon className="w-5 h-5 text-slate-500" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-slate-700">{file.name}</p>
+                        <p className="text-xs text-slate-500">
+                          {file.size ? `${(file.size / 1024 / 1024).toFixed(2)} MB` : 'Size unknown'}
+                        </p>
+                      </div>
+                      <Download className="w-4 h-4 text-slate-400" />
+                    </a>
+                  );
+                }
               })}
             </div>
           </div>
