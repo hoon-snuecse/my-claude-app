@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
+import { checkClaudeUsage, recordUsage } from '@/lib/usage';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -15,6 +16,20 @@ export async function POST(request) {
         error: '로그인이 필요합니다.',
         errorType: 'authentication' 
       }, { status: 401 });
+    }
+
+    // Check usage limit
+    const usage = await checkClaudeUsage(session.user.email);
+    if (usage.remaining <= 0) {
+      return Response.json({ 
+        error: `일일 사용 한도(${usage.limit}회)를 초과했습니다. 내일 다시 시도해주세요.`,
+        errorType: 'usage_limit',
+        usage: {
+          used: usage.used,
+          limit: usage.limit,
+          remaining: 0
+        }
+      }, { status: 429 });
     }
 
     const { message, context } = await request.json();
@@ -57,10 +72,21 @@ export async function POST(request) {
 
     console.log('Claude API 응답 성공');
     
+    // Record usage
+    await recordUsage(session.user.email, 'claude_chat');
+    
+    // Get updated usage info
+    const updatedUsage = await checkClaudeUsage(session.user.email);
+    
     return Response.json({ 
       response: response.content[0].text,
       timestamp: new Date().toISOString(),
-      context: context || 'general'
+      context: context || 'general',
+      usage: {
+        used: updatedUsage.used,
+        limit: updatedUsage.limit,
+        remaining: updatedUsage.remaining
+      }
     });
 
   } catch (error) {
@@ -108,13 +134,43 @@ export async function POST(request) {
   }
 }
 
-// GET 요청 처리 (API 상태 확인용)
-export async function GET() {
-  return Response.json({
-    status: 'ok',
-    service: 'Claude AI Chat API',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-    hasApiKey: !!process.env.ANTHROPIC_API_KEY
-  });
+// GET 요청 처리 (API 상태 및 사용량 확인용)
+export async function GET(request) {
+  try {
+    const session = await getServerSession(authOptions);
+    
+    const baseInfo = {
+      status: 'ok',
+      service: 'Claude AI Chat API',
+      version: '1.0.0',
+      timestamp: new Date().toISOString(),
+      hasApiKey: !!process.env.ANTHROPIC_API_KEY
+    };
+    
+    // If user is authenticated, include usage info
+    if (session) {
+      const usage = await checkClaudeUsage(session.user.email);
+      return Response.json({
+        ...baseInfo,
+        authenticated: true,
+        usage: {
+          used: usage.used,
+          limit: usage.limit,
+          remaining: usage.remaining
+        }
+      });
+    }
+    
+    return Response.json({
+      ...baseInfo,
+      authenticated: false
+    });
+  } catch (error) {
+    console.error('Error in GET /api/claude:', error);
+    return Response.json({
+      status: 'error',
+      service: 'Claude AI Chat API',
+      error: 'Failed to fetch status'
+    }, { status: 500 });
+  }
 }

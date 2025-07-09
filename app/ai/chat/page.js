@@ -1,11 +1,33 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function ChatPage() {
+  const { data: session } = useSession();
   const [message, setMessage] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
+  const [usage, setUsage] = useState({ used: 0, limit: 0, remaining: 0 });
+
+  // Fetch usage info on mount and after each message
+  useEffect(() => {
+    fetchUsage();
+  }, []);
+
+  const fetchUsage = async () => {
+    try {
+      const res = await fetch('/api/claude');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.usage) {
+          setUsage(data.usage);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch usage:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,11 +59,20 @@ export default function ChatPage() {
         };
         setChatHistory(prev => [...prev, assistantMessage]);
         setResponse('');
+        // Update usage info
+        if (data.usage) {
+          setUsage(data.usage);
+        }
       } else {
         if (res.status === 401) {
           setResponse('로그인이 필요합니다. 로그인 후 다시 시도해주세요.');
           // 선택적: 로그인 페이지로 리다이렉트
           // window.location.href = '/auth/signin';
+        } else if (res.status === 429) {
+          setResponse(data.error);
+          if (data.usage) {
+            setUsage(data.usage);
+          }
         } else {
           setResponse(`오류: ${data.error}`);
         }
@@ -66,11 +97,22 @@ export default function ChatPage() {
           {/* 헤더 */}
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="flex-1">
                 <h1 className="text-3xl font-bold mb-2">Claude AI 연구 채팅</h1>
                 <p className="text-purple-100">PISA, 증거기반평가, SNA 연구에 대해 Claude와 대화해보세요</p>
               </div>
-              <div className="text-6xl">🤖</div>
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <p className="text-sm text-purple-100">오늘 사용량</p>
+                  <p className="text-2xl font-bold">
+                    {usage.used} / {usage.limit}
+                  </p>
+                  <p className="text-xs text-purple-200">
+                    {usage.remaining}회 남음
+                  </p>
+                </div>
+                <div className="text-6xl">🤖</div>
+              </div>
             </div>
           </div>
 

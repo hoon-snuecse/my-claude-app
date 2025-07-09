@@ -14,7 +14,8 @@ import {
   X,
   LogIn,
   LogOut,
-  MessageCircle
+  MessageCircle,
+  Shield
 } from 'lucide-react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
@@ -123,6 +124,17 @@ export default function Navigation() {
               </Link>
             )}
             
+            {/* 관리자 대시보드 버튼 (관리자만) */}
+            {session?.user?.isAdmin && (
+              <Link
+                href="/admin/dashboard"
+                className="ml-2 flex items-center gap-2 bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-900 transition-all duration-200"
+              >
+                <Shield className="w-4 h-4" />
+                <span>관리자</span>
+              </Link>
+            )}
+            
             {/* 로그인/로그아웃 버튼 */}
             <div className="ml-4">
               {status === 'loading' ? (
@@ -189,6 +201,18 @@ export default function Navigation() {
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>Claude와 대화하기</span>
+              </Link>
+            )}
+            
+            {/* 모바일 관리자 버튼 */}
+            {session?.user?.isAdmin && (
+              <Link
+                href="/admin/dashboard"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 mt-2 bg-slate-800 text-white rounded-lg text-base font-medium"
+              >
+                <Shield className="w-5 h-5" />
+                <span>관리자 대시보드</span>
               </Link>
             )}
             
