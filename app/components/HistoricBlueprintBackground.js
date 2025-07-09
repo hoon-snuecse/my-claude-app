@@ -1,10 +1,17 @@
 'use client';
 
+import { useEffect } from 'react';
+
 export default function HistoricBlueprintBackground({ 
   opacity = 0.08, 
   animationSpeed = 'normal',
   colorTheme = 'blue' 
 }) {
+  // 디버깅용 로그
+  useEffect(() => {
+    console.log('HistoricBlueprintBackground props:', { opacity, animationSpeed, colorTheme });
+  }, [opacity, animationSpeed, colorTheme]);
+
   // 애니메이션 속도 매핑
   const speedMap = {
     slow: '80s',
@@ -13,22 +20,22 @@ export default function HistoricBlueprintBackground({
     none: '0s'
   };
 
-  // 색상 테마 매핑
+  // 색상 테마 매핑 - 인라인 스타일로 변경
   const colorMap = {
     blue: {
-      stroke: 'stroke-blue-900/30',
-      fill: 'fill-blue-900/5',
-      text: 'fill-blue-900/40'
+      stroke: 'rgba(30, 58, 138, 0.3)', // blue-900
+      fill: 'rgba(30, 58, 138, 0.05)',
+      text: 'rgba(30, 58, 138, 0.4)'
     },
     sepia: {
-      stroke: 'stroke-amber-900/30',
-      fill: 'fill-amber-900/5',
-      text: 'fill-amber-900/40'
+      stroke: 'rgba(120, 53, 15, 0.3)', // amber-900
+      fill: 'rgba(120, 53, 15, 0.05)',
+      text: 'rgba(120, 53, 15, 0.4)'
     },
     mono: {
-      stroke: 'stroke-slate-700/30',
-      fill: 'fill-slate-700/5',
-      text: 'fill-slate-700/40'
+      stroke: 'rgba(51, 65, 85, 0.3)', // slate-700
+      fill: 'rgba(51, 65, 85, 0.05)',
+      text: 'rgba(51, 65, 85, 0.4)'
     }
   };
 
@@ -39,13 +46,15 @@ export default function HistoricBlueprintBackground({
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {/* 브루클린 다리 - 케이블 구조도 (1883) */}
       <svg 
-        className={`absolute ${colors.stroke} ${colors.fill}`}
+        className="absolute"
         style={{ 
           top: '5%', 
           left: '10%', 
           opacity: opacity,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '0s'
+          animationDelay: '0s',
+          stroke: colors.stroke,
+          fill: colors.fill
         }}
         width="320" 
         height="220" 
@@ -78,29 +87,31 @@ export default function HistoricBlueprintBackground({
         <rect x="30" y="180" width="260" height="8" strokeWidth="1.2"/>
         
         {/* 타이틀과 날짜 */}
-        <text x="160" y="25" fontSize="9" textAnchor="middle" className={colors.text}>
+        <text x="160" y="25" fontSize="9" textAnchor="middle" fill={colors.text}>
           BROOKLYN BRIDGE
         </text>
-        <text x="160" y="38" fontSize="7" textAnchor="middle" className={colors.text}>
+        <text x="160" y="38" fontSize="7" textAnchor="middle" fill={colors.text}>
           John A. Roebling, 1883
         </text>
         
         {/* 치수선 */}
         <line x1="30" y1="210" x2="290" y2="210" strokeWidth="0.5" strokeDasharray="2,2"/>
-        <text x="160" y="208" fontSize="6" textAnchor="middle" className={colors.text}>
+        <text x="160" y="208" fontSize="6" textAnchor="middle" fill={colors.text}>
           1,825 m
         </text>
       </svg>
 
       {/* 보스턴 공공 도서관 - 평면도 (1895) */}
       <svg 
-        className={`absolute ${colors.stroke} ${colors.fill}`}
+        className="absolute"
         style={{ 
           bottom: '15%', 
           right: '8%', 
           opacity: opacity,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '10s'
+          animationDelay: '10s',
+          stroke: colors.stroke,
+          fill: colors.fill
         }}
         width="280" 
         height="200" 
@@ -130,27 +141,29 @@ export default function HistoricBlueprintBackground({
         <rect x="130" y="175" width="20" height="10" fill="none" strokeWidth="1.5"/>
         
         {/* 타이틀 */}
-        <text x="140" y="20" fontSize="9" textAnchor="middle" className={colors.text}>
+        <text x="140" y="20" fontSize="9" textAnchor="middle" fill={colors.text}>
           BOSTON PUBLIC LIBRARY
         </text>
-        <text x="140" y="32" fontSize="7" textAnchor="middle" className={colors.text}>
+        <text x="140" y="32" fontSize="7" textAnchor="middle" fill={colors.text}>
           McKim, Mead & White, 1895
         </text>
         
         {/* 방향 표시 */}
-        <text x="15" y="110" fontSize="8" className={colors.text}>N</text>
+        <text x="15" y="110" fontSize="8" fill={colors.text}>N</text>
         <path d="M12 115 L18 125 L24 115" fill="none" strokeWidth="1"/>
       </svg>
 
       {/* 카네기 홀 - 단면도 (1891) */}
       <svg 
-        className={`absolute ${colors.stroke} ${colors.fill}`}
+        className="absolute"
         style={{ 
           top: '40%', 
           left: '45%', 
           opacity: opacity,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '20s'
+          animationDelay: '20s',
+          stroke: colors.stroke,
+          fill: colors.fill
         }}
         width="240" 
         height="260" 
@@ -178,28 +191,30 @@ export default function HistoricBlueprintBackground({
         <path d="M40 80 L120 40 L200 80" fill="none" strokeWidth="1.5"/>
         
         {/* 타이틀 */}
-        <text x="120" y="20" fontSize="9" textAnchor="middle" className={colors.text}>
+        <text x="120" y="20" fontSize="9" textAnchor="middle" fill={colors.text}>
           CARNEGIE HALL
         </text>
-        <text x="120" y="32" fontSize="7" textAnchor="middle" className={colors.text}>
+        <text x="120" y="32" fontSize="7" textAnchor="middle" fill={colors.text}>
           William Burnet Tuthill, 1891
         </text>
         
         {/* 단면 표시 */}
-        <text x="210" y="160" fontSize="7" className={colors.text}>
+        <text x="210" y="160" fontSize="7" fill={colors.text}>
           SEC A-A
         </text>
       </svg>
 
       {/* 크리스탈 팰리스 - 구조 상세 (1851) */}
       <svg 
-        className={`absolute ${colors.stroke} ${colors.fill}`}
+        className="absolute"
         style={{ 
           top: '20%', 
           right: '35%', 
           opacity: opacity * 0.8,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '30s'
+          animationDelay: '30s',
+          stroke: colors.stroke,
+          fill: colors.fill
         }}
         width="200" 
         height="150" 
@@ -219,20 +234,22 @@ export default function HistoricBlueprintBackground({
         <path d="M30 40 Q100 20 170 40" fill="none" strokeWidth="1.5"/>
         
         {/* 타이틀 */}
-        <text x="100" y="135" fontSize="8" textAnchor="middle" className={colors.text}>
+        <text x="100" y="135" fontSize="8" textAnchor="middle" fill={colors.text}>
           CRYSTAL PALACE - Joseph Paxton, 1851
         </text>
       </svg>
 
       {/* 판테온 - 돔 단면 (126 AD) */}
       <svg 
-        className={`absolute ${colors.stroke} ${colors.fill}`}
+        className="absolute"
         style={{ 
           bottom: '35%', 
           left: '20%', 
           opacity: opacity * 0.9,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '15s'
+          animationDelay: '15s',
+          stroke: colors.stroke,
+          fill: colors.fill
         }}
         width="180" 
         height="180" 
@@ -257,7 +274,7 @@ export default function HistoricBlueprintBackground({
         <rect x="142" y="120" width="8" height="40" strokeWidth="1"/>
         
         {/* 타이틀 */}
-        <text x="90" y="170" fontSize="7" textAnchor="middle" className={colors.text}>
+        <text x="90" y="170" fontSize="7" textAnchor="middle" fill={colors.text}>
           PANTHEON - Rome, 126 AD
         </text>
       </svg>
