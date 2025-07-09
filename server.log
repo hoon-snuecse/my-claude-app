@@ -1,0 +1,671 @@
+
+> my-claude-app@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.3.4 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://172.30.1.46:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Compiled middleware in 131ms
+ ✓ Ready in 668ms
+ ○ Compiling / ...
+ ✓ Compiled / in 961ms
+ HEAD / 200 in 1137ms
+ ✓ Compiled /test-homepage-1 in 357ms
+ GET /test-homepage-1 200 in 409ms
+ ✓ Compiled /test-homepage-2 in 343ms
+ GET /test-homepage-2 200 in 392ms
+ GET / 200 in 65ms
+ ✓ Compiled /api/auth/[...nextauth] in 364ms
+ GET /api/auth/session 200 in 668ms
+ GET /test-homepage-1 200 in 59ms
+ GET /api/auth/session 200 in 27ms
+ GET /api/auth/session 200 in 25ms
+ GET /test-homepage-2 200 in 70ms
+ GET /api/auth/session 200 in 25ms
+ GET /api/auth/session 200 in 18ms
+ GET /test-homepage-1 200 in 77ms
+ GET /api/auth/session 200 in 22ms
+ GET /api/auth/session 200 in 17ms
+ GET /test-homepage-2 200 in 72ms
+ GET /api/auth/session 200 in 22ms
+ GET /api/auth/session 200 in 20ms
+ GET / 200 in 76ms
+ GET /api/auth/session 200 in 26ms
+ GET /api/auth/session 200 in 16ms
+ GET /api/auth/session 200 in 29ms
+ GET /api/auth/session 200 in 18ms
+ GET /test-homepage-1 200 in 68ms
+ GET /api/auth/session 200 in 27ms
+ GET /api/auth/session 200 in 17ms
+ GET /test-homepage-2 200 in 74ms
+ GET /api/auth/session 200 in 20ms
+ GET /api/auth/session 200 in 17ms
+ GET /test-homepage-1 200 in 69ms
+ GET /api/auth/session 200 in 22ms
+ GET /api/auth/session 200 in 16ms
+ GET /test-homepage-2 200 in 73ms
+ GET /api/auth/session 200 in 21ms
+ GET /api/auth/session 200 in 15ms
+ GET /test-homepage-1 200 in 74ms
+ GET /api/auth/session 200 in 20ms
+ GET /api/auth/session 200 in 16ms
+ ✓ Compiled in 81ms
+ ✓ Compiled in 163ms
+ GET /test-homepage-1 200 in 162ms
+ GET /api/auth/session 200 in 21ms
+ ✓ Compiled /favicon.ico in 170ms
+ GET /favicon.ico 200 in 399ms
+ GET /test-homepage-2 200 in 78ms
+ GET /api/auth/session 200 in 22ms
+ GET /test-homepage-1 200 in 75ms
+ GET /api/auth/session 200 in 23ms
+ GET /test-homepage-2 200 in 77ms
+ GET /api/auth/session 200 in 30ms
+ GET /test-homepage-1 200 in 84ms
+ GET /api/auth/session 200 in 21ms
+ GET /test-homepage-1 200 in 80ms
+ GET /api/auth/session 200 in 24ms
+ GET /favicon.ico 200 in 222ms
+ GET /test-homepage-2 200 in 72ms
+ GET /api/auth/session 200 in 20ms
+ GET /test-homepage-1 200 in 80ms
+ GET /api/auth/session 200 in 23ms
+ ✓ Compiled in 98ms
+ ✓ Compiled in 73ms
+ ✓ Compiled middleware in 3ms
+ ✓ Compiled middleware in 2ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ✓ Compiled in 104ms
+ GET /api/auth/session 200 in 117ms
+ ✓ Compiled /_not-found/page in 348ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ✓ Compiled /_error in 437ms
+ GET /test-homepage-1 500 in 889ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 18ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 15ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 15ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 14ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 14ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 13ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 16ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 18ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /favicon.ico 500 in 34ms
+ GET /apple-touch-icon-precomposed.png 500 in 40ms
+ GET /apple-touch-icon.png 500 in 41ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET /test-homepage-1 500 in 25ms
+ ✓ Compiled / in 10ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET / 500 in 28ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET / 500 in 28ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET / 500 in 27ms
+ ⨯ ./app/layout.js:4:1
+Module not found: Can't resolve './components/BlueprintBackground'
+[0m [90m 2 |[39m [36mimport[39m [33mNavigation[39m [36mfrom[39m [32m'./components/Navigation'[39m[0m
+[0m [90m 3 |[39m [36mimport[39m [33mFooter[39m [36mfrom[39m [32m'./components/Footer'[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mBlueprintBackground[39m [36mfrom[39m [32m'./components/BlueprintBackground'[39m[0m
+[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 5 |[39m [36mimport[39m [33mProviders[39m [36mfrom[39m [32m'./components/Providers'[39m[0m
+[0m [90m 6 |[39m[0m
+[0m [90m 7 |[39m [36mexport[39m [36mconst[39m metadata [33m=[39m {[0m
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ GET / 500 in 27ms

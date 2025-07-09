@@ -1,7 +1,6 @@
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
-import BlueprintBackground from './components/BlueprintBackground'
 import Providers from './components/Providers'
 
 export const metadata = {
@@ -79,9 +78,6 @@ export default function RootLayout({ children }) {
       </head>
       <body className="font-inter antialiased">
         <Providers>
-          {/* 청사진 배경 */}
-          <BlueprintBackground />
-          
           <div className="relative z-10">
             {/* 네비게이션 */}
             <Navigation />
