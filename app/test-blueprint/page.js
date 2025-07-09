@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BlueprintBackground from '../components/BlueprintBackground';
 import HistoricBlueprintBackground from '../components/HistoricBlueprintBackground';
 
@@ -10,6 +10,15 @@ export default function TestBlueprintPage() {
   const [animationSpeed, setAnimationSpeed] = useState('normal');
   const [colorTheme, setColorTheme] = useState('blue');
   const [showGrid, setShowGrid] = useState(false);
+
+  useEffect(() => {
+    console.log('TestBlueprintPage mounted');
+    console.log('Current state:', { showHistoric, opacity, animationSpeed, colorTheme });
+  }, []);
+
+  useEffect(() => {
+    console.log('State changed:', { showHistoric, opacity, animationSpeed, colorTheme });
+  }, [showHistoric, opacity, animationSpeed, colorTheme]);
 
   return (
     <div className="min-h-screen relative">
