@@ -4,37 +4,52 @@ import { useState, useEffect } from 'react';
 import BlueprintBackground from '../components/BlueprintBackground';
 import HistoricBlueprintBackground from '../components/HistoricBlueprintBackground';
 import HistoricBlueprintBackgroundSimple from '../components/HistoricBlueprintBackgroundSimple';
+import DaVinciStyleBackground from '../components/DaVinciStyleBackground';
 
 export default function TestBlueprintPage() {
-  const [showHistoric, setShowHistoric] = useState(true);
-  const [opacity, setOpacity] = useState(0.08);
+  const [backgroundType, setBackgroundType] = useState('davinci');
+  const [opacity, setOpacity] = useState(0.2);
   const [animationSpeed, setAnimationSpeed] = useState('normal');
   const [colorTheme, setColorTheme] = useState('blue');
   const [showGrid, setShowGrid] = useState(false);
 
   useEffect(() => {
     console.log('TestBlueprintPage mounted');
-    console.log('Current state:', { showHistoric, opacity, animationSpeed, colorTheme });
+    console.log('Current state:', { backgroundType, opacity, animationSpeed, colorTheme });
   }, []);
 
   useEffect(() => {
-    console.log('State changed:', { showHistoric, opacity, animationSpeed, colorTheme });
-  }, [showHistoric, opacity, animationSpeed, colorTheme]);
+    console.log('State changed:', { backgroundType, opacity, animationSpeed, colorTheme });
+  }, [backgroundType, opacity, animationSpeed, colorTheme]);
 
   return (
     <div className="min-h-screen relative">
       {/* 디버그 정보 */}
       <div className="fixed top-0 left-0 bg-red-600 text-white p-2 z-50 text-xs">
-        배경: {showHistoric ? 'Historic' : 'Normal'} | 투명도: {opacity}
+        배경: {backgroundType} | 투명도: {opacity}
       </div>
 
       {/* 배경 컴포넌트 - z-index 명시 */}
       <div className="fixed inset-0 z-0">
-        {showHistoric ? (
+        {backgroundType === 'davinci' && (
+          <DaVinciStyleBackground 
+            opacity={opacity}
+            animationSpeed={animationSpeed}
+          />
+        )}
+        {backgroundType === 'simple' && (
           <HistoricBlueprintBackgroundSimple 
             opacity={opacity}
           />
-        ) : (
+        )}
+        {backgroundType === 'historic' && (
+          <HistoricBlueprintBackground 
+            opacity={opacity}
+            animationSpeed={animationSpeed}
+            colorTheme={colorTheme}
+          />
+        )}
+        {backgroundType === 'normal' && (
           <BlueprintBackground />
         )}
       </div>
@@ -74,26 +89,16 @@ export default function TestBlueprintPage() {
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   배경 타입
                 </label>
-                <div className="space-y-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      checked={showHistoric}
-                      onChange={() => setShowHistoric(true)}
-                      className="mr-2"
-                    />
-                    <span className="text-sm">역사적 건축도면</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      checked={!showHistoric}
-                      onChange={() => setShowHistoric(false)}
-                      className="mr-2"
-                    />
-                    <span className="text-sm">기존 도면</span>
-                  </label>
-                </div>
+                <select
+                  value={backgroundType}
+                  onChange={(e) => setBackgroundType(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md"
+                >
+                  <option value="davinci">다빈치 스타일 (복잡)</option>
+                  <option value="simple">심플 건축도면</option>
+                  <option value="historic">역사적 건축도면</option>
+                  <option value="normal">기존 도면</option>
+                </select>
               </div>
 
               {/* 투명도 조절 */}
@@ -103,8 +108,8 @@ export default function TestBlueprintPage() {
                 </label>
                 <input
                   type="range"
-                  min="0.03"
-                  max="0.15"
+                  min="0.05"
+                  max="0.3"
                   step="0.01"
                   value={opacity}
                   onChange={(e) => setOpacity(parseFloat(e.target.value))}
@@ -138,7 +143,7 @@ export default function TestBlueprintPage() {
                   value={colorTheme}
                   onChange={(e) => setColorTheme(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-300 rounded-md"
-                  disabled={!showHistoric}
+                  disabled={backgroundType === 'normal' || backgroundType === 'simple'}
                 >
                   <option value="blue">블루 (기본)</option>
                   <option value="sepia">세피아</option>
