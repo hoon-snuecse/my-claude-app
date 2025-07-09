@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import BlueprintBackground from '../components/BlueprintBackground';
 import HistoricBlueprintBackground from '../components/HistoricBlueprintBackground';
+import HistoricBlueprintBackgroundSimple from '../components/HistoricBlueprintBackgroundSimple';
 
 export default function TestBlueprintPage() {
   const [showHistoric, setShowHistoric] = useState(true);
@@ -30,10 +31,8 @@ export default function TestBlueprintPage() {
       {/* 배경 컴포넌트 - z-index 명시 */}
       <div className="fixed inset-0 z-0">
         {showHistoric ? (
-          <HistoricBlueprintBackground 
+          <HistoricBlueprintBackgroundSimple 
             opacity={opacity}
-            animationSpeed={animationSpeed}
-            colorTheme={colorTheme}
           />
         ) : (
           <BlueprintBackground />

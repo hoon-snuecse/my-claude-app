@@ -43,11 +43,7 @@ export default function HistoricBlueprintBackground({
   const duration = speedMap[animationSpeed];
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" style={{ backgroundColor: 'rgba(255, 0, 0, 0.1)' }}>
-      {/* 디버그: 빨간 배경으로 컨테이너가 보이는지 확인 */}
-      <div className="absolute top-0 left-0 bg-yellow-400 text-black p-2 z-50">
-        Historic Background Loaded
-      </div>
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       
       {/* 브루클린 다리 - 케이블 구조도 (1883) */}
       <svg 
@@ -55,20 +51,18 @@ export default function HistoricBlueprintBackground({
         style={{ 
           top: '5%', 
           left: '10%', 
-          opacity: 1, // 임시로 완전 불투명으로 설정
+          opacity: opacity,
           animation: animationSpeed !== 'none' ? `float-historic ${duration} ease-in-out infinite` : 'none',
-          animationDelay: '0s',
-          stroke: 'red', // 임시로 빨간색으로 설정
-          fill: 'yellow', // 임시로 노란색으로 설정
-          border: '2px solid blue' // 테두리 추가
+          animationDelay: '0s'
         }}
         width="320" 
         height="220" 
         viewBox="0 0 320 220"
       >
-        {/* 타워 */}
-        <rect x="60" y="80" width="20" height="120" strokeWidth="1.5"/>
-        <rect x="240" y="80" width="20" height="120" strokeWidth="1.5"/>
+        <g stroke={colors.stroke} fill={colors.fill}>
+          {/* 타워 */}
+          <rect x="60" y="80" width="20" height="120" strokeWidth="1.5"/>
+          <rect x="240" y="80" width="20" height="120" strokeWidth="1.5"/>
         
         {/* 고딕 아치 */}
         <path d="M60 100 Q70 90 80 100" fill="none" strokeWidth="1.2"/>
@@ -105,6 +99,7 @@ export default function HistoricBlueprintBackground({
         <text x="160" y="208" fontSize="6" textAnchor="middle" fill={colors.text}>
           1,825 m
         </text>
+        </g>
       </svg>
 
       {/* 보스턴 공공 도서관 - 평면도 (1895) */}
