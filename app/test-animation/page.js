@@ -91,19 +91,11 @@ export default function TestAnimationPage() {
         }
       `}</style>
 
-      {/* 시스템 정보 */}
+      {/* 시스템 정보 - 클라이언트 사이드에서만 렌더링 */}
       <div className="mt-8 p-4 bg-white rounded shadow">
         <h3 className="font-semibold mb-2">디버그 정보:</h3>
         <ul className="text-sm space-y-1">
           <li>애니메이션 상태: {isAnimating ? '활성' : '비활성'}</li>
-          <li>브라우저: {typeof navigator !== 'undefined' ? navigator.userAgent.split(' ').slice(-2).join(' ') : 'Unknown'}</li>
-          <li>시스템 애니메이션 설정: 
-            <span className="ml-2">
-              {typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-                ? '줄임 (시스템 설정에서 애니메이션 줄이기가 켜져있음)' 
-                : '정상'}
-            </span>
-          </li>
         </ul>
       </div>
     </div>
