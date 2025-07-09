@@ -22,16 +22,23 @@ export default function TestBlueprintPage() {
 
   return (
     <div className="min-h-screen relative">
-      {/* 배경 컴포넌트 */}
-      {showHistoric ? (
-        <HistoricBlueprintBackground 
-          opacity={opacity}
-          animationSpeed={animationSpeed}
-          colorTheme={colorTheme}
-        />
-      ) : (
-        <BlueprintBackground />
-      )}
+      {/* 디버그 정보 */}
+      <div className="fixed top-0 left-0 bg-red-600 text-white p-2 z-50 text-xs">
+        배경: {showHistoric ? 'Historic' : 'Normal'} | 투명도: {opacity}
+      </div>
+
+      {/* 배경 컴포넌트 - z-index 명시 */}
+      <div className="fixed inset-0 z-0">
+        {showHistoric ? (
+          <HistoricBlueprintBackground 
+            opacity={opacity}
+            animationSpeed={animationSpeed}
+            colorTheme={colorTheme}
+          />
+        ) : (
+          <BlueprintBackground />
+        )}
+      </div>
 
       {/* 그리드 오버레이 (참조용) */}
       {showGrid && (
