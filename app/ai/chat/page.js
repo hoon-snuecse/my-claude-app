@@ -9,6 +9,10 @@ export default function ChatPage() {
   const [loading, setLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState([]);
   const [usage, setUsage] = useState({ used: 0, limit: 0, remaining: 0 });
+  const [selectedCategory, setSelectedCategory] = useState('research');
+  const [blogMode, setBlogMode] = useState(false);
+  const [generatedMarkdown, setGeneratedMarkdown] = useState('');
+  const [showMarkdownPreview, setShowMarkdownPreview] = useState(false);
 
   // Fetch usage info on mount and after each message
   useEffect(() => {
@@ -45,7 +49,8 @@ export default function ChatPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           message,
-          context: 'research' // 연구 컨텍스트 설정
+          context: selectedCategory,
+          blogMode: blogMode
         }),
       });
       
@@ -59,6 +64,12 @@ export default function ChatPage() {
         };
         setChatHistory(prev => [...prev, assistantMessage]);
         setResponse('');
+        
+        // 블로그 모드일 때 마크다운 저장
+        if (blogMode) {
+          setGeneratedMarkdown(data.response);
+          setShowMarkdownPreview(true);
+        }
         // Update usage info
         if (data.usage) {
           setUsage(data.usage);
@@ -98,8 +109,8 @@ export default function ChatPage() {
           <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6">
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-2">Claude AI 연구 채팅</h1>
-                <p className="text-purple-100">PISA, 증거기반평가, SNA 연구에 대해 Claude와 대화해보세요</p>
+                <h1 className="text-3xl font-bold mb-2">Claude AI 채팅</h1>
+                <p className="text-purple-100">교육 연구와 분석에 대해 Claude와 대화해보세요</p>
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-right">
@@ -112,6 +123,37 @@ export default function ChatPage() {
                   </p>
                 </div>
                 <div className="text-6xl">🤖</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 카테고리 선택 및 블로그 모드 */}
+          <div className="bg-gray-100 p-4 border-b">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <label className="text-sm font-medium text-gray-700">카테고리:</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="research">연구</option>
+                  <option value="teaching">교육</option>
+                  <option value="analytics">분석</option>
+                  <option value="daily">일상</option>
+                </select>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={blogMode}
+                    onChange={(e) => setBlogMode(e.target.checked)}
+                    className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <span className="text-sm font-medium text-gray-700">블로그 글 작성 모드</span>
+                </label>
               </div>
             </div>
           </div>
@@ -245,6 +287,72 @@ export default function ChatPage() {
           </div>
         </div>
       </div>
+
+      {/* 마크다운 미리보기 모달 */}
+      {showMarkdownPreview && generatedMarkdown && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="p-6 border-b flex items-center justify-between">
+              <h3 className="text-xl font-bold">생성된 블로그 글</h3>
+              <button
+                onClick={() => setShowMarkdownPreview(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto whitespace-pre-wrap">
+                {generatedMarkdown}
+              </pre>
+            </div>
+            
+            <div className="p-6 border-t flex gap-3">
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(generatedMarkdown);
+                  alert('마크다운이 클립보드에 복사되었습니다!');
+                }}
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                복사하기
+              </button>
+              
+              <button
+                onClick={async () => {
+                  const filename = `${new Date().toISOString().split('T')[0]}-생성된-글.md`;
+                  const res = await fetch('/api/save-blog-post', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                      content: generatedMarkdown,
+                      filename: filename
+                    })
+                  });
+                  
+                  if (res.ok) {
+                    const data = await res.json();
+                    alert(`파일이 저장되었습니다: ${data.filepath}`);
+                  } else {
+                    alert('파일 저장에 실패했습니다.');
+                  }
+                }}
+                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              >
+                파일로 저장
+              </button>
+              
+              <button
+                onClick={() => setShowMarkdownPreview(false)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

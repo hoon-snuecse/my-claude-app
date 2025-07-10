@@ -32,7 +32,7 @@ export async function POST(request) {
       }, { status: 429 });
     }
 
-    const { message, context } = await request.json();
+    const { message, context, blogMode } = await request.json();
 
     // API 키 확인
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -51,16 +51,52 @@ export async function POST(request) {
     console.log('Claude API 호출 시작:', { messageLength: message.length, context });
 
     // 컨텍스트에 따른 시스템 프롬프트 설정
-    let systemPrompt = `당신은 박교수의 연구실에서 활동하는 Claude AI입니다. 
-교육연구, 특히 PISA 분석, 증거기반평가, 사회네트워크분석에 대해 전문적이면서도 친근하게 대화합니다.
-연구자의 관점에서 데이터 기반의 통찰력 있는 답변을 제공하세요.`;
+    let systemPrompt = `당신은 교육을 전공하는 교사이며, 동시에 데이터 분석가입니다.
+이론에 대한 탐색을 좋아하고, 이론과 동향, 쟁점 등에 대해 학습을 합니다.
+연구자의 관점을 늘 갖추고 글을 쓰길 원합니다.
+글의 길이는 [일상] 카테고리를 제외하고는 충분히 길고 상세하게 작성해도 좋습니다.`;
 
     if (context === 'research') {
-      systemPrompt += `\n특히 연구 방법론, 데이터 분석, 학술적 글쓰기에 대해 전문적으로 조언해주세요.`;
+      systemPrompt += `\n[연구] 카테고리: 학술적 관점에서 이론적 탐구와 실증적 분석을 수행합니다. 
+충분한 깊이와 길이로 주제를 탐구하여 학술적 가치를 담아주세요.`;
     } else if (context === 'teaching') {
-      systemPrompt += `\n교육학적 관점에서 수업 설계, 학습 평가, 교육 혁신에 대해 조언해주세요.`;
-    } else if (context === 'coffee') {
-      systemPrompt += `\n커피를 마시며 나누는 일상적이고 철학적인 대화의 톤으로 응답해주세요.`;
+      systemPrompt += `\n[교육] 카테고리: 교수학습 방법과 교육 현장의 실천적 지식을 다룹니다.
+구체적인 사례와 방법론을 상세히 설명하여 실용적 가치를 높여주세요.`;
+    } else if (context === 'analytics') {
+      systemPrompt += `\n[분석] 카테고리: 데이터 기반의 통찰과 분석 방법론을 탐구합니다.
+분석 과정과 결과를 충분히 설명하고, 시각화나 표를 활용한 상세한 설명을 제공하세요.`;
+    } else if (context === 'daily' || context === 'coffee') {
+      systemPrompt += `\n[일상] 카테고리: 교육자이자 연구자의 일상적 성찰과 경험을 나눕니다.
+간결하고 읽기 쉬운 분량으로 일상의 통찰을 공유하세요.`;
+    }
+
+    // 블로그 모드일 때 추가 지시사항
+    if (blogMode) {
+      systemPrompt += `\n\n다음 마크다운 템플릿 형식으로 글을 작성하세요:
+---
+title: "[주제에 맞는 제목]"
+category: ${context || 'general'}
+tags: [관련 태그들을 자동으로 생성]
+summary: "핵심 내용 한 줄 요약"
+isAIGenerated: true
+---
+
+# 메인 제목
+
+## 섹션 제목들과 내용을 적절히 구성
+
+### 세부 섹션들
+
+- 중요 포인트들
+- 구체적인 내용
+
+## 마무리
+
+**주의사항:**
+- 이모지는 절대 사용하지 않습니다
+- 순수 마크다운 구문만 사용합니다
+- [일상] 카테고리는 간결하게, 나머지는 충분히 상세하게 작성합니다
+- 학술적 인용이 필요한 경우 APA 스타일을 따릅니다`;
     }
 
     const response = await anthropic.messages.create({
