@@ -150,13 +150,14 @@ isAIGenerated: true
 **작성 지침:**
 - 학술 논문의 형식과 문체를 엄격히 준수합니다
 - 객관적이고 논리적인 서술을 유지합니다
-- 충분한 깊이와 분량으로 각 섹션을 작성합니다 (최소 10,000자 이상 권장)
-- 글이 길어질 경우 자연스럽게 마무리하되, 핵심 내용은 모두 포함합니다
-- 만약 분량 제한으로 모든 내용을 다루지 못했다면, 마지막에 [계속 작성 필요] 표시를 추가합니다
+- 각 섹션을 충분히 상세하게 작성합니다 (전체 10,000자 이상 목표)
+- 가능한 한 전체 논문을 완성하되, 토큰 제한에 도달하면 자연스럽게 마무리합니다
+- 중간에 멈추게 되면 마지막에 "[미완성 - 계속 작성 필요]" 표시를 남깁니다
 - 이모지는 절대 사용하지 않습니다
 - 학술적 근거와 논리적 연결성을 중시합니다
 - 전문 용어는 처음 사용 시 정의를 명확히 합니다
-- 단락 구성은 서론-본론-결론의 구조를 갖춥니다`;
+- 단락 구성은 서론-본론-결론의 구조를 갖춥니다
+- 각 문장과 단락은 완전한 형태로 작성하여 중간에 끊기지 않도록 합니다`;
       }
     }
 
@@ -167,14 +168,27 @@ isAIGenerated: true
     
     console.log('토큰 설정:', { requestedTokens: maxTokens, modelLimit: 8192 });
     
+    // API 호출 시 추가 파라미터로 안정성 향상
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: maxTokens,
+      temperature: 0.7, // 일관성 있는 응답을 위해 적절한 온도 설정
       system: systemPrompt,
       messages: [{ role: 'user', content: message }]
     });
 
     console.log('Claude API 응답 성공');
+    
+    // 응답 텍스트 확인
+    const responseText = response.content[0].text;
+    const responseLength = responseText.length;
+    
+    console.log('응답 길이:', responseLength, '글자');
+    
+    // 글이 중간에 끊겼는지 확인
+    const isIncomplete = responseText.includes('[미완성') || 
+                        responseText.includes('[계속 작성 필요]') ||
+                        (blogMode && context !== 'daily' && responseLength < 8000);
     
     // Record usage
     await recordUsage(session.user.email, 'claude_chat');
@@ -183,9 +197,11 @@ isAIGenerated: true
     const updatedUsage = await checkClaudeUsage(session.user.email);
     
     return Response.json({ 
-      response: response.content[0].text,
+      response: responseText,
       timestamp: new Date().toISOString(),
       context: context || 'general',
+      isIncomplete: isIncomplete,
+      responseLength: responseLength,
       usage: {
         used: updatedUsage.used,
         limit: updatedUsage.limit,

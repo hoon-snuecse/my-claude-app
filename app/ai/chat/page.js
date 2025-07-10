@@ -69,6 +69,11 @@ export default function ChatPage() {
         if (blogMode) {
           setGeneratedMarkdown(data.response);
           setShowMarkdownPreview(true);
+          
+          // 글이 미완성인 경우 알림
+          if (data.isIncomplete) {
+            alert(`글이 완전히 작성되지 않았습니다. (${data.responseLength}자 작성됨)\n\n"계속 작성해줘"라고 요청하시면 이어서 작성할 수 있습니다.`);
+          }
         }
         // Update usage info
         if (data.usage) {
