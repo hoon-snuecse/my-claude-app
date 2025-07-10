@@ -145,7 +145,7 @@ isAIGenerated: true
 **작성 지침:**
 - 학술 논문의 형식과 문체를 엄격히 준수합니다
 - 객관적이고 논리적인 서술을 유지합니다
-- 충분한 깊이와 분량으로 각 섹션을 작성합니다 (최소 8,000자 이상 권장)
+- 충분한 깊이와 분량으로 각 섹션을 작성합니다 (최소 20,000자 이상, 최대 32,000자까지 가능)
 - 이모지는 절대 사용하지 않습니다
 - 학술적 근거와 논리적 연결성을 중시합니다
 - 전문 용어는 처음 사용 시 정의를 명확히 합니다
@@ -155,7 +155,7 @@ isAIGenerated: true
 
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: blogMode ? (context === 'daily' ? 2000 : 8000) : 2000, // 일상은 수필 모드(2000), 나머지는 소논문 모드(8000)
+      max_tokens: blogMode ? (context === 'daily' ? 2000 : 32000) : 2000, // 일상은 수필 모드(2000), 나머지는 소논문 모드(32000)
       system: systemPrompt,
       messages: [{ role: 'user', content: message }]
     });
