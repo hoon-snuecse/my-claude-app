@@ -48,7 +48,12 @@ export async function POST(request) {
       }, { status: 400 });
     }
 
-    console.log('Claude API 호출 시작:', { messageLength: message.length, context });
+    console.log('Claude API 호출 시작:', { 
+      messageLength: message.length, 
+      context,
+      blogMode,
+      maxTokens: blogMode ? (context === 'daily' ? 2000 : 32000) : 2000
+    });
 
     // 컨텍스트에 따른 시스템 프롬프트 설정
     let systemPrompt = `당신은 교육을 전공하는 교사이며, 동시에 데이터 분석가입니다.
@@ -145,7 +150,9 @@ isAIGenerated: true
 **작성 지침:**
 - 학술 논문의 형식과 문체를 엄격히 준수합니다
 - 객관적이고 논리적인 서술을 유지합니다
-- 충분한 깊이와 분량으로 각 섹션을 작성합니다 (최소 20,000자 이상, 최대 32,000자까지 가능)
+- 충분한 깊이와 분량으로 각 섹션을 작성합니다 (최소 10,000자 이상 권장)
+- 글이 길어질 경우 자연스럽게 마무리하되, 핵심 내용은 모두 포함합니다
+- 만약 분량 제한으로 모든 내용을 다루지 못했다면, 마지막에 [계속 작성 필요] 표시를 추가합니다
 - 이모지는 절대 사용하지 않습니다
 - 학술적 근거와 논리적 연결성을 중시합니다
 - 전문 용어는 처음 사용 시 정의를 명확히 합니다
@@ -153,9 +160,16 @@ isAIGenerated: true
       }
     }
 
+    // Claude Sonnet 4의 실제 최대 토큰은 8192이므로 조정
+    const maxTokens = blogMode 
+      ? (context === 'daily' ? 2000 : 8192) // 소논문 모드는 모델의 최대치 사용
+      : 2000;
+    
+    console.log('토큰 설정:', { requestedTokens: maxTokens, modelLimit: 8192 });
+    
     const response = await anthropic.messages.create({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: blogMode ? (context === 'daily' ? 2000 : 32000) : 2000, // 일상은 수필 모드(2000), 나머지는 소논문 모드(32000)
+      max_tokens: maxTokens,
       system: systemPrompt,
       messages: [{ role: 'user', content: message }]
     });
