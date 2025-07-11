@@ -203,6 +203,13 @@ export default function PostPage({ params }) {
           )}
         </header>
 
+        {/* AI Generated Notice */}
+        {post.isAIGenerated && (
+          <div className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm">
+            <span className="font-semibold">• AI •</span> 이 글은 AI의 도움을 받아 작성하였습니다.
+          </div>
+        )}
+
         {/* Content */}
         <div 
           className="prose prose-lg max-w-none text-slate-700"
@@ -275,14 +282,6 @@ export default function PostPage({ params }) {
           </div>
         )}
 
-        {/* AI Generated Notice */}
-        {post.isAIGenerated && (
-          <div className="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              이 콘텐츠는 AI의 도움을 받아 작성되었습니다.
-            </p>
-          </div>
-        )}
 
         {/* Navigation */}
         <div className="mt-12 pt-6 border-t border-slate-200 flex justify-center gap-6 text-sm relative z-20">

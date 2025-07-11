@@ -100,7 +100,7 @@ export async function POST(request) {
         summary: postData.summary,
         tags: postData.tags || [],
         reading_time: postData.readingTime,
-        is_ai_generated: postData.isAIGenerated || false
+        is_ai_generated: postData.isAIGenerated || isClaudeUpload || true
       }])
       .select()
       .single();
