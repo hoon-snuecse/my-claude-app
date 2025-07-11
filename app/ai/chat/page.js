@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import AIBadge from '@/components/AIBadge';
 
 export default function ChatPage() {
   const { data: session } = useSession();
@@ -127,16 +128,18 @@ export default function ChatPage() {
                     {usage.remaining}회 남음
                   </p>
                 </div>
-                <div className="text-6xl">🤖</div>
+                <div className="flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-lg">
+                  <AIBadge size="xlarge" />
+                </div>
               </div>
             </div>
           </div>
 
-          {/* 카테고리 선택 및 블로그 모드 */}
+          {/* 분류 선택 및 블로그 모드 */}
           <div className="bg-gray-100 p-4 border-b">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <label className="text-sm font-medium text-gray-700">카테고리:</label>
+                <label className="text-sm font-medium text-gray-700">분류:</label>
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
@@ -192,7 +195,7 @@ export default function ChatPage() {
                     >
                       <div className="flex items-start gap-3">
                         <div className="text-lg">
-                          {msg.role === 'user' ? '👨‍🎓' : '🤖'}
+                          {msg.role === 'user' ? '👨‍🎓' : <AIBadge size="small" />}
                         </div>
                         <div className="flex-1">
                           <p className="whitespace-pre-wrap leading-relaxed">
@@ -213,7 +216,7 @@ export default function ChatPage() {
                   <div className="flex justify-start">
                     <div className="bg-white border border-gray-200 px-4 py-3 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <div className="text-lg">🤖</div>
+                        <div className="text-lg"><AIBadge size="small" /></div>
                         <div className="flex items-center gap-1">
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>

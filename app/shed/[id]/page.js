@@ -257,8 +257,8 @@ export default function PostPage({ params }) {
                 )}
                 
                 {post.isAIGenerated && (
-                  <div className="mt-4 px-4 py-2 bg-amber-50 text-amber-700 rounded-lg text-sm">
-                    🤖 이 글은 AI와 함께 작성되었습니다.
+                  <div className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg text-sm">
+                    <span className="font-semibold">• AI •</span> 이 글은 AI와 함께 작성되었습니다.
                   </div>
                 )}
               </div>

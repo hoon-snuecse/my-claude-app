@@ -142,7 +142,7 @@ export async function POST(request) {
       id: newPost.id,
       post: newPost,
       url: `https://bluenote.site/shed/${newPost.id}`,
-      message: isClaudeUpload ? '🤖 Claude 자동 업로드 완료!' : '✅ 포스트 생성 완료!'
+      message: isClaudeUpload ? '✨ Claude 자동 업로드 완료!' : '✅ 포스트 생성 완료!'
     });
   } catch (error) {
     console.error('Error saving post:', error);
